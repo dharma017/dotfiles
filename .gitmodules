@@ -4,3 +4,6 @@
 [submodule "janus/.janus/vim-powerline"]
 	path = janus/.janus/vim-powerline
 	url = https://github.com/lokaltog/vim-powerline
+[submodule "janus/.janus/xoria256.vim"]
+	path = janus/.janus/xoria256.vim
+	url = https://github.com/vim-scripts/xoria256.vim
