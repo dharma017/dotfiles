@@ -1,0 +1,11 @@
+[user]
+  name = Dharma Thapa
+  email = dharmaraj@tulipstechnologies.com
+
+[github]
+  user = relizont
+
+;[pager]
+;  diff = diff-so-fancy | less --tabs=4 -RFX
+;  show = diff-so-fancy | less --tabs=4 -RFX
+

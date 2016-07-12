@@ -1,0 +1,1 @@
+/home/dharmaraj/.config/fisherman/thefuck/init.fish

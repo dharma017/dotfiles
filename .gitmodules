@@ -1,0 +1,6 @@
+[submodule "janus/.janus/rename2"]
+	path = janus/.janus/rename2
+	url = https://github.com/vim-scripts/Rename2.git
+[submodule "janus/.janus/vim-powerline"]
+	path = janus/.janus/vim-powerline
+	url = https://github.com/lokaltog/vim-powerline

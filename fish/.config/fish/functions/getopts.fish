@@ -1,0 +1,1 @@
+/home/dharmaraj/.config/fisherman/getopts/getopts.fish
