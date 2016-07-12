@@ -36,4 +36,4 @@ SET fish_pager_color_completion:normal
 SET fish_pager_color_description:555\x1eyellow
 SET fish_pager_color_prefix:cyan
 SET fish_pager_color_progress:cyan
-SET fisher_dependency_count:last_job_id\x1egetopts\x1eawait\x1ez\x1efzf\x1ebass\x1ethefuck
+SET fisher_dependency_count:last_job_id\x1egetopts\x1eawait\x1ez\x1efzf\x1ebass\x1ethefuck\x1edocker\x2dcompose\x1edocker\x2dfish\x2dcompletion
