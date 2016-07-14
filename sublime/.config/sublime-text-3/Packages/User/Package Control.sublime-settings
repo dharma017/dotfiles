@@ -5,13 +5,33 @@
 	],
 	"installed_packages":
 	[
+		"AdvancedNewFile",
+		"Alignment",
+		"AlignTab",
+		"AngularJS Snippets",
+		"Blade Snippets",
+		"Bootstrap 3 Snippets",
+		"BracketHighlighter",
 		"CodeIgniter Snippets",
 		"CodeIgniter Utilities",
 		"Color Highlighter",
+		"ColorPicker",
 		"DocBlockr",
+		"Emmet",
+		"Emmet Css Snippets",
+		"Gist",
 		"Git",
+		"GitGutter",
+		"jQuery Snippets pack",
+		"Nodejs",
 		"Package Control",
+		"PHP Companion",
 		"SideBarEnhancements",
-		"Theme - Cobalt2"
+		"SublimeLinter",
+		"SublimeLinter-csslint",
+		"SublimeLinter-jshint",
+		"SublimeLinter-php",
+		"Theme - Cobalt2",
+		"Twig"
 	]
 }
