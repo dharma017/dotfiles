@@ -1,16 +1,26 @@
 {
+	"binary_file_patterns":
+	[
+		"nodde_modules/",
+		"vendor",
+		"tmp/",
+		"bower_components/"
+	],
 	"bold_folder_labels": true,
-	"fade_fold_buttons": false,
 	"caret_extra_bottom": 2,
 	"caret_extra_top": 2,
 	"caret_extra_width": 3,
 	"caret_style": "phase",
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
-	"font_size": 11,
+	"fade_fold_buttons": false,
+	"font_face": "inconsolas",
+	"font_size": 16,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"CodeFormatter",
+		"Vintage"
 	],
 	"indent_guide_options":
 	[
@@ -19,14 +29,10 @@
 	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
+	"save_on_focus_lost": true,
 	"sidebar_font_big": true,
 	"sidebar_medium": true,
 	"theme": "Cobalt2.sublime-theme",
-	"wide_caret": true,
-	"save_on_focus_lost": true,
-	"highlight_modified_tabs": true,
-
-
-
-
+	"vintageous_use_ctrl_keys": true,
+	"wide_caret": true
 }
