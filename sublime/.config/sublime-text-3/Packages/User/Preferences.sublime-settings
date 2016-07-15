@@ -34,5 +34,6 @@
 	"sidebar_medium": true,
 	"theme": "Cobalt2.sublime-theme",
 	"vintageous_use_ctrl_keys": true,
-	"wide_caret": true
+	"wide_caret": true,
+	"word_wrap":true
 }
