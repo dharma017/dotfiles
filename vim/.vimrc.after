@@ -190,3 +190,21 @@ endfunction
 nmap ,2  :call AddDependency()<cr>
 
 set diffopt+=vertical
+
+" Editing Your Vimrc
+"nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Source the vimrc file after saving it
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
+nmap <leader>v :tabedit ~/.vimrc.after<CR>
+
+" Make vim more useful {{{
+set nocompatible
+" }}}
+
+
+

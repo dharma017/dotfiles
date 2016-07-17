@@ -19,6 +19,7 @@
 		"Color Highlighter",
 		"ColorPicker",
 		"DocBlockr",
+		"Dotfiles Syntax Highlighting",
 		"Emmet",
 		"Emmet Css Snippets",
 		"Expand Selection to Quotes",
@@ -50,6 +51,7 @@
 		"Theme - Cobalt2",
 		"TodoReview",
 		"Twig",
+		"VimL",
 		"Vintageous"
 	]
 }
