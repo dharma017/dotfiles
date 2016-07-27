@@ -59,7 +59,7 @@
   lds = log --pretty=format:\"%C(yellow)%h | %ad%Cred%d | %Creset%s%Cblue | [%cn]\" --decorat --date=short
   ld = log --pretty=format:\"%C(yellow)%h | %ad%Cred%d | %Creset%s%Cblue | [%cn]\" --decorate --date=relative
   le = log --oneline --decorate
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   commti = commit
 	conflicts = !git ls-files -u | cut -f 2 | sort -u
 [credential]

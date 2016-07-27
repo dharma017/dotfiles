@@ -7,3 +7,15 @@
 [submodule "janus/.janus/xoria256.vim"]
 	path = janus/.janus/xoria256.vim
 	url = https://github.com/vim-scripts/xoria256.vim
+[submodule "janus/.janus/emmet-vim"]
+	path = janus/.janus/emmet-vim
+	url = https://github.com/mattn/emmet-vim
+[submodule "janus/.janus/tabular"]
+	path = janus/.janus/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "janus/.janus/vim-endwise"]
+	path = janus/.janus/vim-endwise
+	url = https://github.com/tpope/vim-endwise
+[submodule "janus/.janus/delimitmate"]
+	path = janus/.janus/delimitmate
+	url = https://github.com/raimondi/delimitmate

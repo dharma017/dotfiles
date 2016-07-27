@@ -30,7 +30,8 @@ set timeout timeoutlen=200 ttimeoutlen=100
 " set visualbell           " don't beep
 " set noerrorbells         " don't beep
 set autowrite  "Save on buffer switch
-set mouse=a
+set mouse=a                     " enable use of the mouse for all modes
+set wildmenu                    " better command line completion
 
 " Fast saves
 nmap <leader>w :w!<cr>
@@ -173,22 +174,7 @@ function! Class()
 endfunction
 nmap ,1  :call Class()<cr>
 
-" Add a new dependency to a PHP class
-function! AddDependency()
-    let dependency = input('Var Name: ')
-    let namespace = input('Class Path: ')
-
-    let segments = split(namespace, '\')
-    let typehint = segments[-1]
-
-    exec 'normal gg/construct^M:H^Mf)i, ' . typehint . ' $' . dependency . '^[/}^>O$this->^[a' . dependency . ' = $' . dependency . ';^[?{^MkOprotected $' . dependency . ';^M^[?{^MOuse ' . namespace . ';^M^['
-
-    " Remove opening comma if there is only one dependency
-    exec 'normal :%s/(, /(/g
-'
-endfunction
-nmap ,2  :call AddDependency()<cr>
-
+" Always use vertical diffs
 set diffopt+=vertical
 
 " Editing Your Vimrc
@@ -202,9 +188,50 @@ endif
 
 nmap <leader>v :tabedit ~/.vimrc.after<CR>
 
-" Make vim more useful {{{
-set nocompatible
+" Aligning text with Tabular.vim {{{
+if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
+
+" }j}}
+"
+" prevent using arrow keys
+nnoremap <Up> :echomsg "use k"<cr>
+nnoremap <Down> :echomsg "use j"<cr>
+nnoremap <Left> :echomsg "use h"<cr>
+nnoremap <Right> :echomsg "use l"<cr>
+
+" Toggle nerdtree with F10
+map <F10> :NERDTreeToggle<CR>
+
+" Current file in nerdtree
+map <F9> :NERDTreeFind<CR>
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" Speed up viewport scrolling {{{
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 " }}}
-
-
-
