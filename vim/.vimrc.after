@@ -183,7 +183,7 @@ set diffopt+=vertical
 
 " Source the vimrc file after saving it
 if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
+  autocmd! bufwritepost .vimrc.after source %
 endif
 
 nmap <leader>v :tabedit ~/.vimrc.after<CR>
@@ -226,10 +226,6 @@ map <F9> :NERDTreeFind<CR>
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
-
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
 
 " Speed up viewport scrolling {{{
 nnoremap <C-e> 3<C-e>
