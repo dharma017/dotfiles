@@ -1,0 +1,15 @@
+"*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "ef306983-cac7-4bec-9c7a-f72eab91c6c8"
+  core:
+    autoHideMenuBar: true
+  editor:
+    fontSize: 19
+    showIndentGuide: true
+    showInvisibles: true
+    softWrap: true
+  "php-cs-fixer":
+    executeOnSave: true
+  welcome:
+    showOnStartup: false
