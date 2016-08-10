@@ -4,12 +4,18 @@
       _analyticsUserId: "ef306983-cac7-4bec-9c7a-f72eab91c6c8"
   core:
     autoHideMenuBar: true
+    disabledPackages: [
+      "vim-mode"
+    ]
   editor:
-    fontSize: 19
+    fontSize: 18
     showIndentGuide: true
     showInvisibles: true
     softWrap: true
   "php-cs-fixer":
     executeOnSave: true
+  "vim-mode":
+    startInInsertMode: true
+    useSmartcaseForSearch: true
   welcome:
     showOnStartup: false
