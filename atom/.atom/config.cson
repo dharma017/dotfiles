@@ -8,7 +8,7 @@
       "vim-mode"
     ]
   editor:
-    fontSize: 18
+    fontSize: 19
     showIndentGuide: true
     showInvisibles: true
     softWrap: true
