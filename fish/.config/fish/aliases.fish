@@ -51,7 +51,7 @@ end
 
 
 # Git
-alias nah="git reset --hard;git clean -df;"
+alias nah="git reset --hard;git clean -df"
 alias master="git checkout master"
 alias gst="git status"
 alias gss="git status -s"

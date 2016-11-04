@@ -36,7 +36,7 @@ SET fish_pager_color_completion:normal
 SET fish_pager_color_description:555\x1eyellow
 SET fish_pager_color_prefix:cyan
 SET fish_pager_color_progress:cyan
-SET fish_user_abbreviations:websearchold\x20ssh\x20root\x4094\x2e247\x2e169\x2e99\x1ewebsearchnew\x20ssh\x20tulips\x40109\x2e74\x2e4\x2e178\x1ewpserver\x20ssh\x20demo\x4031\x2e192\x2e224\x2e208\x1ettserver\x20ssh\x20ubuntu\x40192\x2e168\x2e1\x2e3\x1egst\x20git\x20status\x1ebipserver\x20ssh\x20root\x40barninternetprojektet\x2ese
+SET fish_user_abbreviations:websearchold\x20ssh\x20root\x4094\x2e247\x2e169\x2e99\x1ewebsearchnew\x20ssh\x20tulips\x40109\x2e74\x2e4\x2e178\x1ewpserver\x20ssh\x20demo\x4031\x2e192\x2e224\x2e208\x1ettserver\x20ssh\x20ubuntu\x40192\x2e168\x2e1\x2e3\x1ebipserver\x20ssh\x20root\x40barninternetprojektet\x2ese\x1enewdb\x20scp\x20root\x40barninternetprojektet\x2ese\x3a/var/lib/automysqlbackup/daily/bip/\x1ewsold\x20ssh\x20root\x4094\x2e247\x2e169\x2e99\x1ewsnew\x20ssh\x20tulips\x40109\x2e74\x2e4\x2e178\x1ebipnew\x20ssh\x20bjosod\x40k8bip01\x2eki\x2ese\x1esscuser\x20ssh\x20sscuser\x4046\x2e101\x2e30\x2e89\x1esscroot\x20ssh\x20root\x4046\x2e101\x2e30\x2e89
 SET fish_user_paths:/home/dharmaraj/\x2efzf/bin
 SET fisher_active_prompt:bobthefish
 SET fisher_dependency_count:simple\x1egetopts\x1eawait\x1egit_util\x1epwd_is_home\x1epwd_info\x1ehost_info\x1elast_job_id\x1ehumanize_duration\x1ez\x1efzf\x1ebass\x1ethefuck\x1egit\x2dflow\x1edocker\x2dcompletion\x1ebobthefish\x1etransfer
