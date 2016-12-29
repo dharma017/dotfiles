@@ -3,8 +3,27 @@
 # Run this as sudo!
 # I move this file to /usr/local/bin/vhost and run command 'vhost' from anywhere, using sudo.
 
+# Installation
+
+# 	curl https://gist.github.com/fideloper/2710970/raw/cbe308f44bfd299a3f410bb1a06aa67a2753763a/vhost.sh > vhost
+# 	chmod ugo+x vhost
+# 	sudo mv vhost /usr/local/bin
+
+# For symblink
+#	ln -s "$(pwd)/vhost" /usr/local/bin/vhost
+#	vhost --help # should work!
+
+# Usage
+
+# See Help Menu
+#	vhost -h
+
+# Create virtual host for "myproject.local"
+
+#	sudo vhost -d /var/www/myproject  -s myproject.local
+#	echo 127.0.0.1 myproject.local | cat - /etc/hosts > /tmp/out ; sudo mv /tmp/out /etc/hosts
 #
-#   Show Usage, Output to STDERR
+# Show Usage, Output to STDERR
 #
 function show_usage {
 cat <<- _EOF_
