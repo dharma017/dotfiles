@@ -16,3 +16,4 @@ make_completion g 'git'
 
 # Local prompt customization
 set -e fish_greeting
+set -gx PATH $PATH .config/composer/vendor/bin
