@@ -10,7 +10,7 @@ Pull the repository, and then create the symbolic links [using GNU
 stow](https://www.gnu.org/software/stow/)
 
 ```bash
-$ git clone git@github.com:relizont/dotfiles.git ~/dotfiles && cd
+$ git clone https://github.com/relizont/dotfiles.git ~/dotfiles && cd
 ~/dotfiles
 $ stow fish vim tmux # plus whatever else you'd like
 ```
