@@ -26,6 +26,7 @@ $ chsh -s `which fish`
 The Vim dotfiles depend on [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
 ```bash
+$ sudo apt-get install ruby-dev rake exuberant-ctags ack-grep
 $ curl -L https://bit.ly/janus-bootstrap | bash
 ```
 
