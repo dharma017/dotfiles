@@ -30,7 +30,7 @@ $ sudo apt-get install ruby-dev rake exuberant-ctags ack-grep
 $ curl -L https://bit.ly/janus-bootstrap | bash
 ```
 
-Self-contained, pretty and versatile .tmux.conf configuration file.
+Self-contained, pretty and versatile [.tmux.conf](https://github.com/gpakosz/.tmux) configuration file
 ```bash
 $ cd
 $ git clone https://github.com/gpakosz/.tmux.git
