@@ -41,16 +41,16 @@ fisher z
 The Vim dotfiles depend on [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
 ```bash
-$ sudo apt-get install ruby-dev rake exuberant-ctags ack-grep
-$ curl -L https://bit.ly/janus-bootstrap | bash
+sudo apt-get install ruby-dev rake exuberant-ctags ack-grep
+curl -L https://bit.ly/janus-bootstrap | bash
 ```
 
 Self-contained, pretty and versatile [.tmux.conf](https://github.com/gpakosz/.tmux) configuration file
 ```bash
-$ cd
-$ git clone https://github.com/gpakosz/.tmux.git
-$ ln -s -f .tmux/.tmux.conf
-$ cp .tmux/.tmux.conf.local .
+cd
+git clone https://github.com/gpakosz/.tmux.git
+ln -s -f .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local .
 ```
 
 Then proceed to customize your `~/.tmux.conf.local` copy.
@@ -60,28 +60,28 @@ The `bash` dotfiles depend on [Bash-it](https://github.com/Bash-it/bash-it),
 so install if necessary
 
 ```bash
-$ git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-$ sh ~/.bash_it/install.sh
+git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+sh ~/.bash_it/install.sh
 ```
 
 The `zsh` dotfiles depend on [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh),
 so install if necessary:
 
 ```bash
-$ sudo apt-get install zsh
-$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-$ git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+sudo apt-get install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 ```
 
 Pull the repository, and then create the symbolic links [using GNU
 stow](https://www.gnu.org/software/stow/)
 
 ```bash
-$ git clone https://github.com/relizont/dotfiles.git ~/dotfiles && cd
+git clone https://github.com/relizont/dotfiles.git ~/dotfiles && cd
 ~/dotfiles
-$ stow fish vim tmux # plus whatever else you'd like
-$mkdir -p ~/.vim/backup
-$mkdir -p ~/.vim/swap
+stow fish vim tmux # plus whatever else you'd like
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/swap
 ```
 
 License
