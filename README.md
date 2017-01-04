@@ -6,13 +6,10 @@ This is my collection of [configuration files](http://dotfiles.github.io/) for U
 Usage
 -----
 
-Pull the repository, and then create the symbolic links [using GNU
-stow](https://www.gnu.org/software/stow/)
+Install GNU Stow: symlink farm manager
 
 ```bash
-$ git clone https://github.com/relizont/dotfiles.git ~/dotfiles && cd
-~/dotfiles
-$ stow fish vim tmux # plus whatever else you'd like
+sudo apt-get install stow
 ```
 
 The `fish` dotfiles depend on [the fish shell](http://fishshell.com),
@@ -21,6 +18,24 @@ so install that first:
 ```bash
 $ sudo apt-get install fish
 $ chsh -s `which fish`
+```
+
+Basic fish configuration
+
+```bash
+mkdir -p ~/.config/fish
+vim ~/.config/fish/config.fish
+set -g -x PATH /usr/local/bin $PATH
+fish_config
+fish_update_completions
+echo "set -g -x fish_greeting ''" >> ~/.config/fish/config.fish
+```
+
+Install plugin manager for fish
+
+```bash
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+fisher z
 ```
 
 The Vim dotfiles depend on [Janus: Vim Distribution](https://github.com/carlhuda/janus)
@@ -38,11 +53,11 @@ $ ln -s -f .tmux/.tmux.conf
 $ cp .tmux/.tmux.conf.local .
 ```
 
-Then proceed to customize your ~/.tmux.conf.local copy.
+Then proceed to customize your `~/.tmux.conf.local` copy.
 
 
 The `bash` dotfiles depend on [Bash-it](https://github.com/Bash-it/bash-it),
-so install that first:
+so install if necessary
 
 ```bash
 $ git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
@@ -50,12 +65,23 @@ $ sh ~/.bash_it/install.sh
 ```
 
 The `zsh` dotfiles depend on [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh),
-so install that first:
+so install if necessary:
 
 ```bash
 $ sudo apt-get install zsh
 $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 $ git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+```
+
+Pull the repository, and then create the symbolic links [using GNU
+stow](https://www.gnu.org/software/stow/)
+
+```bash
+$ git clone https://github.com/relizont/dotfiles.git ~/dotfiles && cd
+~/dotfiles
+$ stow fish vim tmux # plus whatever else you'd like
+$mkdir -p ~/.vim/backup
+$mkdir -p ~/.vim/swap
 ```
 
 License
