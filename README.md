@@ -30,6 +30,17 @@ $ sudo apt-get install ruby-dev rake exuberant-ctags ack-grep
 $ curl -L https://bit.ly/janus-bootstrap | bash
 ```
 
+Self-contained, pretty and versatile .tmux.conf configuration file.
+```bash
+$ cd
+$ git clone https://github.com/gpakosz/.tmux.git
+$ ln -s -f .tmux/.tmux.conf
+$ cp .tmux/.tmux.conf.local .
+```
+
+Then proceed to customize your ~/.tmux.conf.local copy.
+
+
 The `bash` dotfiles depend on [Bash-it](https://github.com/Bash-it/bash-it),
 so install that first:
 
