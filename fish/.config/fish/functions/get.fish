@@ -1,0 +1,1 @@
+/home/dharmaraj/.config/fisherman/get/functions/get.fish

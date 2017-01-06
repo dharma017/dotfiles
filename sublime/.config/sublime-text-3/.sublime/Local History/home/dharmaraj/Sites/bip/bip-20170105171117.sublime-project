@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"laradock",
+				"Scripts",
+				".idea"
+			],
+			"path": "."
+		}
+	]
+}
