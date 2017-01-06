@@ -32,10 +32,17 @@ echo "set -g -x fish_greeting ''" >> ~/.config/fish/config.fish
 ```
 
 Install plugin manager for fish
-
 ```bash
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-fisher z
+fisher z fzf edc/bass omf/thefuck
+__fzf_install
+```
+
+Install app which corrects your previous console command
+```
+sudo apt update
+sudo apt install python3-dev python3-pip
+sudo -H pip3 install thefuck
 ```
 
 The Vim dotfiles depend on [Janus: Vim Distribution](https://github.com/carlhuda/janus)
