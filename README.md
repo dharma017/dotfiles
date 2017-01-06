@@ -79,9 +79,16 @@ stow](https://www.gnu.org/software/stow/)
 ```bash
 git clone https://github.com/relizont/dotfiles.git ~/dotfiles && cd
 ~/dotfiles
-stow fish vim tmux # plus whatever else you'd like
+stow fish vim # plus whatever else you'd like
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vim/swap
+```
+
+Sublime dotfiles
+
+```bash
+rm -rf ~/.config/sublime-text-3/
+stow sublime
 ```
 
 License
