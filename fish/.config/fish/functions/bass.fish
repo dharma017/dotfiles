@@ -1,1 +1,0 @@
-/home/dharmaraj/.config/fisherman/bass/functions/bass.fish

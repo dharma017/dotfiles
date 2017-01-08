@@ -1,5 +1,3 @@
-source ~/.config/fish/aliases.fish
-
 # Local prompt customization
 set -e fish_greeting
 set -gx PATH $PATH .config/composer/vendor/bin

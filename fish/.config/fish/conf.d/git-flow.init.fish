@@ -1,1 +1,0 @@
-/home/dharmaraj/.config/fisherman/git-flow/init.fish

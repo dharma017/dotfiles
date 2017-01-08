@@ -1,1 +1,0 @@
-/home/dharmaraj/.config/fisherman/thefuck/functions/fuck.fish

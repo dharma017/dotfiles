@@ -1,1 +1,0 @@
-/home/dharmaraj/.config/fisherman/pwd_info/pwd_info.fish
