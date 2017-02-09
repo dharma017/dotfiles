@@ -1,0 +1,138 @@
+<div class="tp-line">
+    <div class="container">
+        <ul>
+            {% for item in header_menu.get_items %}
+            <li>
+
+                {% if item.object_id == '92' %}   
+                    <a class="top-heading fancybox-flight hidden_link" href="http://fis.com.mv/cgi-bin/webfids.pl">{{ item.title }}</a>
+
+                {% elseif item.object_id == '90' %}   
+                    <a href="#currency_converter_pop" class="top-heading fancybox">{{ item.title }}</a>
+
+                    <div style="display:none" class="fancybox-hidden">
+                        <div id="currency_converter_pop">
+                            <div class="modal-header">
+                                {{ item.title }}
+                            </div>
+                            {% filter shortcodes %}
+                            [wpcc title="" pretool_paragraph="" from_default=USD to_default=AUD]
+                            {% endfilter %}
+                        </div>
+                    </div>
+                 {% else %}
+                    <a href="{{ item.link }}" title="{{ item.title }}">{{ item.title }}</a> 
+                 {% endif %}  
+            </li>
+            {% endfor %}
+        </ul>
+        <aside class="hidden-xs">
+            {% if social_media.facebook %}
+        <a href="{{ social_media.facebook }}" target="_blank" title="Our Facebook Page"><i class="fa fa-facebook-square fa-2x">&nbsp;</i></a>
+        {% else %}
+        <a href="#" title="Our Facebook Page"><i class="fa fa-facebook-square fa-2x">&nbsp;</i></a>
+        {% endif %}
+        {% if social_media.twitter %}
+        <a href="{{ social_media.twitter }}" target="_blank" title="Our Twitter Page"><i class="fa fa-twitter-square fa-2x">&nbsp;</i></a>
+        {% else %}
+        <a href="#" title="Our Twitter Page"><i class="fa fa-twitter-square fa-2x">&nbsp;</i></a>  
+        {% endif %}
+        {% if social_media.twitter %}
+        <a href="{{ social_media.instagram }}" target="_blank" title="Our Instagram Page"><i class="fa fa-instagram fa-2x">&nbsp;</i></a>
+        {% else %} 
+        <a href="#" title="Our Instagram Page"><i class="fa fa-instagram fa-2x">&nbsp;</i></a>
+        {% endif %} 
+        {% if social_media.twitter %} 
+        <a href="{{ social_media.tumblr }}" target="_blank" title="Our Tumblr Page"><i class="fa fa-tumblr-square fa-2x">&nbsp;</i></a>
+        {% else %}
+        <a href="#" title="Our Tumblr Page"><i class="fa fa-tumblr-square fa-2x">&nbsp;</i></a>
+        {% endif %}
+        </aside>
+        
+    </div>
+</div>
+<div class="tmt-hd container">
+    <div class="logo">
+        <h1><a href="{{ site.url }}">Logo</a></h1>
+    </div>
+    <div class="weather-support-time">
+        <ul>
+            <li>
+                <span class="block-weather">WEATHER
+                    <span class="digit">{{ weather }}</span>
+                </span>
+                <i class="icon-thermometer"></i>
+            </li>
+            <li>
+                <span class="block-weather">Customer Support
+                    <span class="digit">(960) 000 0000</span>
+                </span>
+                <i class="icon-customerservice"></i>
+            </li>
+            <li>
+                <span class="block-weather">Local Time
+                    <span class="digit">{{ local_time }}
+                    </span>
+                </span>
+                <i class="icon-clock"></i>
+            </li>
+        </ul>
+    </div>
+    <div class="socialsNetworkHolder hidden-xs">
+        {# <span>Join with us on social networks. </span> #}
+        
+        <aside>
+            <ul>
+                {# <li>Language</li> #}
+                <li>
+                    <a href="#speak_expert_pop" title="" class="speak-expert top-heading fancybox">Speak to Travel Expert</a>
+                   
+                    <div style="display:none" class="fancybox-hidden">
+                        <div id="speak_expert_pop" class="text-center">
+                            <h3>Speak to Travel Expert</h3>
+                            <p>We are available on.</p>
+                            <ul>
+                                <li class="phoneWrapper"><i class="fa fa-phone-square fa-2x" aria-hidden="true"></i> <span>
+                                   {% if speak_to_agent.landline %}
+                                    {{ speak_to_agent.landline }}
+                                    {% else %}
+                                     Not available   
+                                    {% endif %}
+                                </span></li>
+                                <li class="mobileWrapper"><i class="fa fa-mobile fa-2x" aria-hidden="true"></i> <span>
+                                    {% if speak_to_agent.cell %}
+                                    {{ speak_to_agent.cell }}
+                                    {% else %}
+                                     Not available   
+                                    {% endif %}</span></li>
+                                <li class="viberWrapper">{# <img src="{{ site.theme.link }}/assets/images/viber@2x.png"> #}<i class="fa fa-viber fa-2x" aria-hidden="true"></i> <span>
+                                    {% if speak_to_agent.viber %}
+                                    {{ speak_to_agent.viber }}
+                                    {% else %}
+                                     Not available   
+                                    {% endif %}</span></li>
+                                <li class="whatsappWrapper"><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i> <span>
+                                    {% if speak_to_agent.whatsapp %}
+                                    {{ speak_to_agent.whatsapp }}
+                                    {% else %}
+                                     Not available   
+                                    {% endif %}</span></li>
+                                <li class="wechatWrapper"><i class="fa fa-wechat fa-2x" aria-hidden="true"></i> <span>
+                                    {% if speak_to_agent.wechat %}
+                                    {{ speak_to_agent.wechat }}
+                                    {% else %}
+                                     Not available   
+                                    {% endif %}</span></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</div>
+{% include 'menu.twig' %}
+
+
+{# </header> #}

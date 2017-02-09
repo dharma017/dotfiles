@@ -1,0 +1,38 @@
+User bjosod may run the following commands on this host:
+
+(root) /bin/systemctl restart httpd.service
+Restart apache service
+
+/bin/systemctl stop httpd.service
+Stop apache service
+
+/bin/systemctl status httpd.service
+Check status of apache service
+
+/bin/systemctl start httpd.service
+Start apache service
+
+/bin/systemctl restart mariadb.service
+Restart Mariadb service
+
+/bin/systemctl status mariadb.service
+Check Status of Mariadb service
+
+/bin/rvim /etc/httpd/conf.d/25-barninternetprojektet.se.conf
+Configure virtual hosts of bip project
+
+/bin/rvim /etc/httpd/conf.d/25-barninternetprojektet.se_ssl.conf
+Configure virtual hosts of bip project ( https )
+
+/bin/rvim /drift/scripts/deploy-bip-to-production.bash
+Setup bash script for deployment
+
+/bin/ls
+list files
+
+/drift/scripts/deploy-bip-to-production.bash
+Deploy project
+
+sudo -u apache /bin/bash
+Loggin as apache user ( password same as bjosod user )
+

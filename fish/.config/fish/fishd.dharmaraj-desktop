@@ -34,4 +34,5 @@ SET fish_pager_color_completion:\x1d
 SET fish_pager_color_description:B3A06D\x1eyellow
 SET fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SET fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
-SET fisher_dependency_count:getopts\x1ez
+SET fish_user_abbreviations:ttserver\x20ssh\x20ubuntu\x40192\x2e168\x2e1\x2e3
+SET fisher_dependency_count:getopts\x1ez\x1edocker\x1egit\x1egit\x2dflow\x2dcompletion

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "899120845451",
+    "firebase_url": "https://bip-app-f4973.firebaseio.com",
+    "project_id": "bip-app-f4973",
+    "storage_bucket": "bip-app-f4973.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899120845451:android:d27f8f6adbc22afc",
+        "android_client_info": {
+          "package_name": "back4app.pushnotifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899120845451-jmvjib57i7ir2adrk7au85upigptgc3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxqARI0y3isKsMqGHqInt639F5qTmRfq0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

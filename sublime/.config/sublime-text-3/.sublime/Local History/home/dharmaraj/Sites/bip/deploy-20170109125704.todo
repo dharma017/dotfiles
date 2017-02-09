@@ -1,0 +1,2 @@
+ALTER TABLE `bip_login_activity`
+CHANGE `sms_code` `sms_code` varchar(255) COLLATE 'utf8_unicode_ci' NULL AFTER `sms_attempt`;

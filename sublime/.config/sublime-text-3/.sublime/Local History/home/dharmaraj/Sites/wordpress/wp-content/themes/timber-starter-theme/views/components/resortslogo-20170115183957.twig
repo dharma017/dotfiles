@@ -1,0 +1,21 @@
+
+<section class="resort-list plainBg greyBg">
+    <div class="container">
+        <div class="or-option"><i class="fa fa-heart-o"></i></div>
+        <a href="{{ site.link ~ '/book-a-resort' }}">
+            <h2 class="align-center">CREATE YOUR DREAM HOLIDAY TO MALDIVES<br />
+                <span>Choose what you like. Do what you love.</span>
+            </h2>
+        </a>
+
+        <div id="resortslogo" class="owl-carousel">
+            {% for item in resorts_logo %}
+            <div class="item">
+                {# <a href="{{ item.link }}" title="{{ item.title }}"> #}
+                    <img class="lazyOwl owl-lazy" data-src="{{ item.get_thumbnail.get_src|resize(280,140)}}" alt="{{ item.title }}">
+                {# </a> #}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

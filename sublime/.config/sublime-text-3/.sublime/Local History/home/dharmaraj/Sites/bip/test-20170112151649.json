@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "objectId": "xkiImUasMb",
+      "pushType": "gcm",
+      "localeIdentifier": "en-US",
+      "appVersion": "3.4",
+      "deviceType": "android",
+      "appIdentifier": "com.bupsll.bip",
+      "installationId": "1102c50f-8b02-4399-8767-3d01e0e33033",
+      "parseVersion": "1.13.0",
+      "appName": "BIP-appen",
+      "GCMSenderId": "899120845451",
+      "timeZone": "Asia/Katmandu",
+      "createdAt": "2017-01-11T10:19:22.031Z",
+      "updatedAt": "2017-01-11T10:19:22.465Z",
+      "deviceToken": "APA91bHgNAZV8KYCmQFvwCnS26sifu-eMM_UR3sexUL_KGSOLOEVgxOHxMBY0YKih4mIRcNUsVBkCAR2h4LWeaSQUMunHaPIQEHnKzA4lfBwsANt78tbiRQ60KSvMnHvse6joWkzhq_O"
+    },
+    {
+      "objectId": "K65oR9HQU7",
+      "pushType": "gcm",
+      "localeIdentifier": "en-US",
+      "appVersion": "3.4",
+      "deviceType": "android",
+      "appIdentifier": "com.bupsll.bip",
+      "installationId": "023f5557-4e58-47e1-a7df-b8194ee00d61",
+      "parseVersion": "1.13.0",
+      "appName": "BIP-appen",
+      "GCMSenderId": "899120845451",
+      "timeZone": "Asia/Katmandu",
+      "createdAt": "2017-01-11T10:47:13.449Z",
+      "updatedAt": "2017-01-12T05:25:51.356Z",
+      "deviceToken": "APA91bHYrlIvCFospyogEgmIehxftTXvIPcSRNOHEu1JBcXxdvF8V-Up4zfr3-MSvkMKlxIoFzRIQMwl4VTsL9ycqRN3IZvTWGgbNXZ5KlWlRc68jHRWEhk-xco16CccHPsSgUyFjH4W"
+    }
+  ]
+}

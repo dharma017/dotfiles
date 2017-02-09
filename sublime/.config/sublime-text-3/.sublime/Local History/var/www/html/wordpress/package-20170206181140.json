@@ -1,0 +1,26 @@
+{
+  "name": "TMT",
+  "version": "0.0.1",
+  "description": "\"wordpress site for TMT\"",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-declare": "^0.3.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.0.3",
+    "gulp-watch": "^4.3.1",
+    "gulp-wrap": "^0.11.0"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "wordpress",
+    "gulp"
+  ],
+  "author": "Sunil Shrestha, Anup K. Maharjan"
+}

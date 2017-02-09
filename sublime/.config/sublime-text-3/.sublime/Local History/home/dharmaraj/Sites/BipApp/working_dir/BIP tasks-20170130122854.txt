@@ -1,0 +1,5 @@
+keep a project_backup of www for each platform
+deploy gulp and compare result
+
+
+				

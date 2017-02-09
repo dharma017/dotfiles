@@ -1,2 +1,5 @@
+docker/docker
 fisherman/getopts
+git/git
+bobthecow/git-flow-completion
 fisherman/z

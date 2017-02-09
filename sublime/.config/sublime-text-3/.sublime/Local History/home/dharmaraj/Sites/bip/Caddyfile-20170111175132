@@ -1,0 +1,13 @@
+http://localhost:8080 {
+    root /var/www/html/bip
+    rewrite {
+        r (.*)
+        to {path} {path}/ index.php?{uri}
+    }
+    fastcgi /index.php 127.0.0.1:9000 {
+        ext .php .html
+    }
+    gzip
+    log /var/www/html/bip/access.log
+    errors /var/www/html/bip/errors.log
+}

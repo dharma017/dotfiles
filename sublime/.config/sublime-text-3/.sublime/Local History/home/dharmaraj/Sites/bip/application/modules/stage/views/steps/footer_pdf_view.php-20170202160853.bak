@@ -1,0 +1,12 @@
+<script type='text/javascript'>
+    $(document).ready(function(){
+	    $('.stage-inner').each(function(){
+			var stageHeight = $(this).height();
+                                                    stageHeight = stageHeight+(2);
+                                                     console.log(stageHeight);
+			$(this).height($(this).height());
+			$(this).find('> .stage-bg').css('border-top-width', (stageHeight/2)+'px');
+			$(this).find('> .stage-bg').css('border-bottom-width', (stageHeight/2)+1+'px');
+		});
+	});
+  </script>

@@ -1,0 +1,654 @@
+{% set resort_starting_price = post.get_field('resort_starting_price') %}
+  {% set star_rating = TimberTerm(post.get_field('star_rating')) %}
+    {% set first_image = post.get_field('resort_images')[0]  %}
+      <h1 class="row hide">
+        <div class="col-xs-12">{{ post.title }}</div>
+      </h1>
+      <div class="row por">
+
+      <div class="col-xs-12 col-sm-7 col-md-8">
+          <figure class="imgWrapper por">
+            <img src="{{ post.get_thumbnail.get_src|resize(1100, 628) }}" alt="" class="img-responsive" />
+            <div class="priceBlack">
+              <span class="startingText">Starting Price</span><br />
+              <span class="priceGroup">
+                <small class="denom">$</small> <price>{{ resort_starting_price }}</price> <small>PP</small><br />a night</span>
+            </div>
+          </figure>
+
+          <div class="fullwidth fleft iconHolder titleHolder marTop">
+          <div class="packageTitle hasPrice fleft">
+          <h2 class="h1 fleft ">{{ post.title }} <small class="starRating">
+            {% for i in 1..star_rating.name %}
+              <i class="fa fa-star" style="color:#000;"></i>
+            {% endfor %}</small></h2>
+            <span class="pricelist fullwidth fleft hide"><sup class="denom" >$</sup>{{ resort_starting_price }} <sup>Per Person</sup></span>
+          </div>
+            <div class="iconWrapper hide">
+              <a class="btn btn-primary standAlone hidden-xs  marTop fullwidth fright" href="{{ site.link ~ '/book-a-resort?id=' ~ post.ID }}">Get a quote request</a>
+              <div class="hide">
+              <div class="mediaWrapper fright">
+              <!-- <a class="fancybox fancybox-inline" href="#resort-gallery-div">Images <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a> -->
+              <a class="manualfancybox" href="#">Images <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
+              {# <a href="#">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a> #}
+              {# <a href="#tabbed-8" data-layout="tab" aria-expanded="false">Map <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></a> #}
+              {% if video %}
+                <a href="#video_pop" class="fancybox">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a>
+                {%  else %}
+                <a href="#">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a>
+              {% endif %}
+              <a class="fancybox iframe" target="_top" href="http://maps.google.com/maps?q={{ post.tmt_map.lat }},{{ post.tmt_map.lng }}&z=15&output=embed">Map <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></a>
+              <div style="display:none" class="fancybox-hidden">
+                <div id="video_pop">
+                  <iframe width="560" height="315" src="{{ video }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+              <div class="showAllHotels fullwidth fleft">
+                <input type="checkbox" name="checkAllHotels-2" id="checkAllHotels-2" class="checkbox" />
+                <label class="showTitle" for="checkAllHotels-2">All Hotels in Maldives <i class="fa fa-angle-down"></i></label>
+                <div class="hotelWrapper">
+                  <ul>
+                    {% for item in resorts %}
+                    <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                  <a href="{{ site.link ~ '/resorts' }}" class="showmore">Show more <i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <div class="fullwidth quickInformationWrapper ">
+            <div class="hasPrice fullwidth fleft hide">
+            <h2 class="h1 fleft ">{{ post.title }} <small class="starRating">{% for i in 1..star_rating.name %}
+              <i class="fa fa-star" style="color:#000; "></i>
+            {% endfor %}</small> </h2>
+          </div>
+            <span class="pricelist  btn btn-primary standAlone fullwidth fleft hide"><sup class="denom">$</sup>{{ resort_starting_price }} <small>Per Person</small></span>
+            <a class="btn btn-primary standAlone darkened fullwidth fright" href="{{ site.link ~ '/book-a-resort?id=' ~ post.ID }}">Get a quote request</a>
+            <div class="mainAttraction fullwidth fleft">
+              <h3 class="fullwidth fleft hasMargin">Quick Information</h3>
+              <h5 class="resort-title">{{ post.title }}</h5>
+              <div class="fleft fullwidth">
+                {% for i in 1..star_rating.name %}
+                  <i class="fa fa-star" style="color:#000; "></i>
+                {% endfor %}
+              </div>
+              <p class="resort-address">
+                {% if post.island_address == TimberTerm(post.resort_location).name %}
+                  {{ post.island_address }}<br />
+                {% else %}
+                  {{ post.island_address }}<br />
+                  {{ TimberTerm(post.resort_location).name }}<br />
+                {% endif %}
+                </p>
+                <p><i class="fa fa-building">&nbsp;</i> <strong>Number of Rooms:</strong> {{ post.number_of_rooms }}<br />
+                  <i class="fa fa-plane">&nbsp;</i> <strong>Distance from airport:</strong> {{ post.airport_distance }} Km <br />
+                  <i class="fa fa-clock-o">&nbsp;</i> 50 Mins by Speedboat</p>
+          {# <h3 class="fullwidth fleft hasMargin">Speaking Languages</h3>
+          {% set languages = TimberTerm(post.get_field('speaking_languages')) %}
+          <p>
+            {% for item in languages %}
+              <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              {{ item.name }}<br />
+            {% endfor %}
+          </p> #}
+        </div>
+        <div class="atAGlance">
+          {% if post.glance %}
+            <div class="mainAttraction fullwidth fleft">
+              <h3>At a glance</h3>
+              {{ post.glance }}
+            </div>
+          {% endif %}
+        </div>
+
+
+            <a class="btn btn-primary standAlone marTop fullwidth fright hide" href="{{ site.link ~ '/book-a-resort?id=' ~ post.ID }}">Get a quote request
+            <div class="showAllHotels fullwidth fleft hide">
+                <input type="checkbox" name="checkAllHotels" id="checkAllHotels" class="checkbox" />
+                <label class="showTitle" for="checkAllHotels">All Hotels in Maldives <i class="fa fa-angle-down"></i></label>
+                <div class="hotelWrapper">
+                  <ul>
+                    {% for item in resorts %}
+                    <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                  <a href="{{ site.link ~ '/resorts' }}" class="showmore">Show more <i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+              <div class="iconWrapper hasMarTop">
+              <div class="mediaWrapper fright">
+              <!-- <a class="fancybox fancybox-inline" href="#resort-gallery-div">Images <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a> -->
+              <a class="manualfancybox" href="#">Images <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
+              {# <a href="#">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a> #}
+              {# <a href="#tabbed-8" data-layout="tab" aria-expanded="false">Map <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></a> #}
+              {% if video %}
+                <a href="#video_pop" class="fancybox">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a>
+                {%  else %}
+                <a href="#">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a>
+              {% endif %}
+              <a class="fancybox iframe" target="_top" href="http://maps.google.com/maps?q={{ post.tmt_map.lat }},{{ post.tmt_map.lng }}&z=15&output=embed">Map <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></a>
+              <div style="display:none" class="fancybox-hidden">
+                <div id="video_pop">
+                  <iframe width="560" height="315" src="{{ video }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+              <div class="showAllHotels fullwidth fleft">
+                <input type="checkbox" name="checkAllHotels-3" id="checkAllHotels-3" class="checkbox" />
+                <label class="showTitle" for="checkAllHotels-3">All Hotels in Maldives <i class="fa fa-angle-down"></i></label>
+                <div class="hotelWrapper">
+                  <ul>
+                    {% for item in resorts %}
+                    <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                  <a href="{{ site.link ~ '/resorts' }}" class="showmore">Show more <i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <section class="introText fullwidth fleft">
+        <div class="fullwidth fleft iconHolder hide">
+          <div class="packageTitle hasPrice fleft hideLater">
+          <h2 class="h1 fleft ">{{ post.title }} <small class="starRating">
+            {% for i in 1..star_rating.name %}
+              <i class="fa fa-star" style="color:#000;"></i>
+            {% endfor %}</small></h2>
+            <span class="pricelist fullwidth fleft hide"><sup class="denom" >$</sup>{{ resort_starting_price }} <sup>Per Person</sup></span>
+          </div>
+            <div class="iconWrapper fright">
+              <div class="mediaWrapper fright">
+              <!-- <a class="fancybox fancybox-inline" href="#resort-gallery-div">Images <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a> -->
+              <a class="manualfancybox" href="#">Images <i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
+              {# <a href="#">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a> #}
+              {# <a href="#tabbed-8" data-layout="tab" aria-expanded="false">Map <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></a> #}
+              {% if video %}
+                <a href="#video_pop" class="fancybox">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a>
+                {%  else %}
+                <a href="#">Video <i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a>
+              {% endif %}
+              <a class="fancybox iframe" target="_top" href="http://maps.google.com/maps?q={{ post.tmt_map.lat }},{{ post.tmt_map.lng }}&z=15&output=embed">Map <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></a>
+              <div style="display:none" class="fancybox-hidden">
+                <div id="video_pop">
+                  <iframe width="560" height="315" src="{{ video }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </div>
+</div>
+              <div class="showAllHotels fullwidth fleft">
+                <input type="checkbox" name="checkAllHotels-1" id="checkAllHotels-1" class="checkbox" />
+                <label class="showTitle" for="checkAllHotels-1">All Hotels in Maldives <i class="fa fa-angle-down"></i></label>
+                <div class="hotelWrapper">
+                  <ul>
+                    {% for item in resorts %}
+                    <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                  <a href="{{ site.link ~ '/resorts' }}" class="showmore">Show more <i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fullwidth fleft tabbedButtons">
+            {% if post.content %}
+              <a href="#tabbed-0" data-layout="tab" aria-expanded="true">Introduction</a>
+            {% endif %}
+            {% if room_types %}
+              <a href="#tabbed-61" data-layout="tab" aria-expanded="false">Room Types</a>
+            {% endif %}
+            {% if dining %}
+              <a href="#tabbed-7" data-layout="tab" aria-expanded="false">Dining</a>
+            {% endif %}
+            {% if post.facilities %}
+              <a href="#tabbed-3" data-layout="tab" aria-expanded="false">Facilities</a>
+            {% endif %}
+            {% if post.activities %}
+              <a href="#tabbed-2" data-layout="tab" aria-expanded="false">Activities</a>
+            {% endif %}
+            {% if post.spa %}
+              <a href="#tabbed-4" data-layout="tab" aria-expanded="false">Spa</a>
+            {% endif %}
+            {% if resorts_special_offers %}
+              <a href="#tabbed-5" data-layout="tab" aria-expanded="false">Special Offers</a>
+            {% endif %}
+            {% if resort_packages %}
+              <a href="#tabbed-6" data-layout="tab" aria-expanded="false">Packages</a>
+            {% endif %}
+            {% if post.importance_notice %}
+              <a href="#tabbed-1" data-layout="tab" aria-expanded="false">Importance Notice</a>
+            {% endif %}                         
+          </div>
+          <div class="resortsTabbedDetails fullwidth fleft">
+            <div class="row">
+              <div class="col-xs-12 col-sm-7 col-md-8">
+                {% if post.content %}
+                  <div class="tab-pane fullwidth fleft active postContent" id="tabbed-0">
+                    <p>{{ post.content }}</p>
+                  </div>
+                {% endif %}
+                {% if post.importance_notice %}
+                  <div class="tab-pane fullwidth fleft importanceNotice unordered" id="tabbed-1">
+                    <p>{{ post.importance_notice }}</p>
+                  </div>
+                {% endif %}
+                {% if post.activities %}
+                  <div class="tab-pane fullwidth fleft activities unordered" id="tabbed-2">
+                    <p>{{ post.activities }}</p>
+                  </div>
+                {% endif %}
+                {% if post.facilities %}
+                  <div class="tab-pane fullwidth fleft facilities unordered" id="tabbed-3">
+                    <p>{{ post.facilities }}</p>
+                  </div>
+                {% endif %}
+                {% if post.spa %}
+                  <div class="tab-pane fullwidth fleft spa unordered" id="tabbed-4">
+                    <p>{{ post.spa }}</p>
+                  </div>
+                {% endif %}
+                <div class="tab-pane fullwidth fleft specialOffer" id="tabbed-5">
+                  <div class="scroll-items fullwidth fleft itemCover">
+                    <div id="specialOfferss" class="insideTabbed owl-carousel itemsRepeater ">
+                      {% for item in resorts_special_offers %}
+                        <div class="item ">
+                          <a href="#specialoffer_pop" class="fancybox">
+                            {% if item.get_thumbnail.get_src %}
+                              <figure class="imgWrapper por">
+                                <div class="overFlowedWrapper">
+                                  <div class="figure lazyOwl owl-lazy" style="background-image: url('{{ item.get_thumbnail.get_src|resize(767, 432) }}')">
+                                    {# <img class="lazyOwl owl-lazy" src="{{item.get_thumbnail.get_src|resize(767, 432)}}" alt="TMT Maldives" /> #}
+                                    <img class="lazyOwl owl-lazy" src="{{theme.link}}/assets/images/fake.png" alt="TMT Maldives" />
+                                  </div>
+                                </figure>
+                              {% endif %}
+                              <div class="details morePadding">
+                                <h4>{{ item.title }}</h4>
+                                <div class="priceBox">
+                                  <span class="offer-feature">{{ item.book_text }}</span>
+                                </div>
+                                {#<span class="pricelist"><sup>$</sup>620<sup>PP</sup></span>#}
+                                <div class="priceMoreWrapper">
+                                  <span class="digit-dash col-50">
+                                  {# <span class="resorts-jist">Starting Price</span>
+                                  <span class="pricelist"><sup>$</sup>{{resort_starting_price}}</span><small>per person</small> #}
+                                </span>
+                                <div class="moreBox col-50 fright">
+                                  <span class="more-info-blk">More Info<span></span></span>
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                          <div style="display:none" class="fancybox-hidden">
+                            <div id="specialoffer_pop">
+                              <div class="fullwidth fleft resortDetailWrapper specialOffersDetail">
+                                <h1 class="row">
+                                  <div class="col-xs-12 col-sm-8">{{ item.title }} </div>
+                                  <div class="col-xs-12 col-sm-4"><a class="btn btn-primary standAlone fullwidth fright" href="{{ site.link ~ '/book-special-offer?id=' ~ item.ID }}">Book Now</a>
+                                  </div>
+                                </h1>
+                                <figure class="imgWrapper por">
+                                  <img src="{{ item.get_thumbnail.get_src|resize(767, 432) }}" alt="" class="img-responsive">
+                                </figure>
+                                <section class="introText fullwidth fleft">
+                                  <div class="fullwidth fleft mainFocused">
+                                  {#        <div class="fright shortInfoBox">
+                                    <a class="btn btn-info fright" href="{{ site.link ~ '/book-special-offer?id=' ~ item.ID }}">Book Now</a>
+                                  </div> #}
+                                  {{ item.content }}
+                                </div>
+                                {% if item.special_note %}
+                                  <div class="notesWrapper fullwidth fleft">
+                                    <span class="highlighted-text featureTitle">Notes</span>
+                                    {{ item.special_note }}
+                                  </div>
+                                {% endif %}
+                                <div class="featuresWrapper fullwidth fleft">
+                                <p class="features">
+                                  <span class="featureTitle">Validity:</span><br />
+                                  <i class="fa fa-calendar"></i>
+                                  <strong>{{ item.start_date | date("j M Y") }}</strong> to
+                                  <i class="fa fa-calendar"></i> <strong>{{ item.ending_date | date("j M Y") }}</strong>
+                                </p>
+                              </div>
+                              </section>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fullwidth fleft resortPackages" id="tabbed-6">
+                <div class="scroll-items fullwidth fleft itemCover">
+                  <div id="insideTabbed" class="insideTabbed owl-carousel itemsRepeater">
+                    {% for item in resort_packages %}
+                      {# <div class="item">
+                        <a href="{{ item.link }}">
+                          {% if item.get_thumbnail.get_src %}
+                            <figure>
+                              <img class="lazyOwl" data-src="{{ item.get_thumbnail.get_src|resize(767, 432) }}" alt="TMT Maldives">
+                            </figure>
+                          {% endif %}
+                          <div class="details">
+                            <h4>{{ item.title }}</h4>
+                            {% if item.short_name %}
+                              <span class="offer-feature">{{item.short_name }}</span>
+                            {% endif %}
+                            <span class="pricelist"><sup>$</sup>{{ item.price }}<sup>PP</sup></span>
+                            <span class="offer-feature">Validity:{{ item.ending_date | date }}</span>
+                            <span class="btn-gray more-info">More Info</span>
+                          </div>
+                        </a>
+                      </div> #}
+                      <div class="item">
+                        <a class="fancybox" href="#resortspackage_pop">
+                          {% if item.get_thumbnail.get_src %}
+                            <figure class="imgWrapper por">
+                              <div class="overFlowedWrapper">
+                                <div class="figure lazyOwl owl-lazy" style="background-image: url('{{ item.get_thumbnail.get_src|resize(767, 432) }}')">
+                                  {# <img class="lazyOwl owl-lazy" src="{{item.get_thumbnail.get_src|resize(767, 432)}}" alt="TMT Maldives" /> #}
+                                  <img class="lazyOwl owl-lazy" src="{{theme.link}}/assets/images/fake.png" alt="TMT Maldives" />
+                                </div>
+                              </div>
+                            </figure>
+                          {% endif %}
+                          <div class="details morePadding">
+                            <h4>{{ item.title }}</h4>
+                            
+                            <div class="priceMoreWrapper">
+                              <span class="digit-dash col-50">
+                                <span class="resorts-jist">Package Price</span>
+                                <span class="pricelist"><sup>$</sup>{{ item.price }}</span><small>Per Person</small>
+                              </span>
+                              <div class="moreBox col-50">
+                                <span class="more-info-blk">More Info <span></span></span>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                        {# <div class="infoBox">
+                          <div class="fleft fullwidth otherContents">
+                            <div class="row">
+                              <div class="col-xs-12">
+                                <h5>{{ item.title }}</h5>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="fright fullwidth">
+                            <span class="digit-dash fullwidth fleft">
+                              <span class="resorts-jist fleft">Starting Price</span>
+                              <span class="pricelist fright"><sup>$</sup><span class="oldPrice">{{ item.old_price }}</span> {{ item.price }}<sup>PP</sup></span>
+                            </span>
+                          </div>
+                          <div class="fright fullwidth">
+                            <span class="digit-dash fullwidth fleft">
+                              <span class="resorts-jist fleft"><a class="btn btn-info btn-large" href="{{ site.link ~ '/book-a-package?id=' ~ item.ID }}">Book Now</a></span>
+                              <span class="resorts-jist fright">More Info</span>
+                            </span>
+                          </div>
+                        </div> #}
+                      
+                      <div style="display:none" class="fancybox-hidden">
+                        <div id="resortspackage_pop">
+                          <div class="fullwidth fright resortDetailWrapper resortPackageDetails">
+                            <h1 class="row">
+                              <div class="col-xs-12  col-sm-8">{{ item.title }}</div>
+                              <div class="col-xs-12 col-sm-4"><a class="btn btn-primary standAlone fullwidth fright" href="{{ site.link ~ '/book-a-package?id=' ~ item.ID }}">Book Now</a>
+                                  </div>
+                            </h1>
+                            <figure class="imgWrapper por">
+                              <img src="{{ item.get_thumbnail.get_src|resize(767, 432) }}" class="img-responsive">
+                              {# <div class="priceWrapper">
+                                <span class="pricelist"><sup>$</sup><span class="oldPrice">{{ item.old_price }}</span> <span class="newPrice">{{ item.price }} <sup>PP</sup></span></span>
+                              </div> #}
+                              <div class="priceBlack">
+              <span class="startingText">Starting Price</span><br />
+              <span class="priceGroup">
+                <small class="denom">$</small> <price>{{ item.price }}</price> <small>PP</small><br />a night</span>
+            </div>
+                            </figure>
+                            <section class="introText fullwidth fleft">
+                              <div class="fullwidth fleft mainFocused">
+                                {# <div class="fright shortInfoBox">
+                                  <a class="btn btn-info btn-large" href="{{ site.link ~ '/book-a-package?id=' ~ item.ID }}">Book Now</a>
+                                </div> #}
+                                {{ item.content }}
+                              </div>
+                                {% if item.important_notes %}
+                                  <div class="notesWrapper fullwidth fleft">
+                                  <span class="highlighted-text featureTitle">Notes</span>
+                                  <div class="fullwidth fleft">
+                                  {{ item.important_notes }}
+                                </div>
+                                </div>
+                                {% endif %}
+                                <div class="featuresWrapper fullwidth fleft">
+                                <p class="features">
+                                  {# <span class="featureTitle">Available From:</span><br /> #}<span class="featureTitle">Validity:</span><br /><i class="fa fa-calendar"></i> <strong>{{ item.start_date | date("j M Y") }}</strong> to
+                                  <i class="fa fa-calendar"></i> <strong>{{ item.ending_date | date("j M Y") }}</strong>
+                                </p>
+                              </div>
+                              <div class="fullwidth fleft">
+                                {# <span class="highlighted-text featureTitle">Highlighted Text:</span><br /> #}{{ item.highlight_text }}
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fullwidth fleft featuredResort" id="tabbed-61">
+                <div class="scroll-items fullwidth fleft itemCover">
+                  <div id="insideTabbed" class="insideTabbed owl-carousel itemsRepeater">
+                    {% for item in room_types %}
+                      <div class="item">
+                        <a class="room-fancybox" href="#roomtypes_pop_{{item.ID}}">
+                        {% if item.get_thumbnail.get_src %}
+                          <figure class="imgWrapper por">
+                          <div class="overFlowedWrapper">
+                                <div class="figure lazyOwl owl-lazy" style="background-image: url('{{ item.get_thumbnail.get_src|resize(767, 432) }}')">
+                                  <img class="lazyOwl owl-lazy" src="{{theme.link}}/assets/images/fake.png" alt="TMT Maldives" />
+                                </div>
+                              </div>
+                            </figure>
+                          {% endif %}
+                          <div class="details morePadding">
+                            <h4>{{ item.title }}</h4>
+                            
+                            <div class="priceMoreWrapper">
+                              <span class="digit-dash col-50">
+                                <span class="resorts-jist">Package Price</span>
+                                <span class="pricelist"><sup>$</sup>{{ item.lowest_rate }}</span><small>Per Person</small>
+                              </span>
+                              <div class="moreBox col-50">
+                                <span class="more-info-blk">More Info <span></span></span>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                       
+                        <div style="display:none" class="fancybox-hidden">
+                          <div class="roomTypes_pop" id="roomtypes_pop_{{item.ID}}">
+                            <div class="fullwidth fleft resortDetailWrapper roomTypesDetails">
+                              <h1 class="row">
+                                <div class="col-xs-12 col-sm-8">{{ item.title }}</div>
+                              </h1>
+                              <figure class="imgWrapper por">
+                                <img src="{{ item.get_thumbnail.get_src|resize(767, 432) }}" class="img-responsive">
+                                {# <div class="priceWrapper">
+                                  <span class="pricelist"><sup>$</sup><span class="oldPrice">{{ item.old_price }}</span> <span class="newPrice">{{ item.lowest_rate }} <sup>PP</sup></span></span>
+                                </div> #}
+
+                                <div class="priceBlack">
+              <span class="startingText">Starting Price</span><br />
+              <span class="priceGroup">
+                <small class="denom">$</small> <price>{{ item.lowest_rate }}</price> <small>PP</small><br />a night</span>
+            </div>
+                              </figure>
+                              <section class="introText fullwidth fleft">
+                                <div class="fullwidth fleft mainFocused">
+                                {{ item.content }}
+                                {% if item.facilities %}
+                                  <div class="featuresWrapper fullwidth fleft">
+                                  <span class="highlighted-text featureTitle fullwidth">Facilities</span>
+                                  <div class="fullwidth fleft">
+                                  {{ item.facilities }}
+                                </div>
+                                </div>
+                                {% endif %}
+                                <div class="featuresWrapper fullwidth fleft">
+                                {% if item.room_size %}
+                                  <div class="fullwidth fleft">
+                                  <span class="highlighted-text featureTitle">Room Size - </span>
+                                  {{ item.room_size }}
+                                </div>
+                                {% endif %}
+                                {% if item.beds %}
+                                  <div class="fullwidth fleft">
+                                  <span class="highlighted-text featureTitle">Beds - </span>
+                                  {{ item.beds }}
+                                </div>
+                                {% endif %}
+                                {% if item.max_adults %}
+                                  <div class="fullwidth fleft">
+                                  <span class="highlighted-text featureTitle">Max Adults - </span>
+                                  {{ item.max_adults }}
+                                </div>
+                                {% endif %}
+                                {% if item.max_childs %}
+                                  <div class="fullwidth fleft">
+                                  <span class="highlighted-text featureTitle">Max Child - </span>
+                                  {{ item.max_childs }}
+                                </div>
+                                {% endif %}
+                                {% if item.max_infant %}
+                                  <div class="fullwidth fleft">
+                                  <span class="highlighted-text featureTitle">Max Infant - </span>
+                                  {{ item.max_infant }}
+                                </div>
+                                {% endif %}
+                                
+                              </div></div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                       </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fullwidth fleft" id="tabbed-7">
+                {% for item in dining %}
+                  <p>{{ item.content }}</p>
+                {% endfor %}
+              </div>
+              <div class="tab-pane fullwidth fleft gMap" id="tabbed-8">
+                <h2 class="block-name">Location Map</h2>
+                <div class="map-wrapper fullwidth fleft">
+                  <div id="map_canvas"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-4">
+                <a class="buttonWrapper" href="{{ site.link ~ '/book-a-resort?id=' ~ post.ID }}">
+              <div class="enquire-now">
+                <h3>Enquire now - Request a quote for this resort.</h3>
+                <p>Resort quotes are including transfers and all taxes.</p>
+              </div>
+              </a>
+              <div class="widgets featured-resorts">
+                {% if resort_packages_random %}
+                  <h5 class="widgets-title">{{ TimberPost(post.get_field(resort_cf)) }} <br> Packages</h5>
+                  {% for item in resort_packages_random %}
+                    <div class="featuredRepeater fullwidth fleft">
+                      <a href="{{ item.link }}">
+                        {% if item.get_thumbnail.get_src %}
+                          <figure>
+                            <img src="{{ item.get_thumbnail.get_src|resize(767, 432) }}" alt="" class="img-responsive">     </figure>
+                          {% endif %}
+                          <div class="infoBox">
+                            <div class="fleft fullwidth otherContents">
+                              <div class="row">
+                                <div class="col-xs-12">
+                                  <h5>{{ item.title }}</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="fright fullwidth">
+                              <span class="digit-dash fullwidth fleft">
+                                <span class="resorts-jist fleft">Starting Price</span>
+                                <span class="pricelist fright"><sup>$</sup><span class="oldPrice">{{ item.old_price }}</span> {{ item.price }} <sup>PP</sup></span>
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fullwidth fleft">
+          {% include 'components/random-resorts.twig' %}
+        </div>
+      </div>
+
+  <div style="display:none" class="fancybox-hidden">
+    <div class="details_gallery_min">
+      <!--Your custom content-->
+      {% include 'components/resort-gallery-listing.twig' %}
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function(){
+      $(".manualfancybox").click(function() {
+        var photos  = new Array();
+        $(".details_gallery_min a").each(function(){
+          href = $(this).attr("href");
+          title = $(this).attr("title");
+          photos.push({'href': href, 'title': title})
+        });
+        jQuery.fancybox(photos ,
+          {   'transitionIn' : 'elastic',
+          'easingIn' : 'easeOutBack',
+          'transitionOut' : 'elastic',
+          'easingOut' : 'easeInBack',
+          'opacity' : false,
+          'titleShow' : true,
+          'titlePosition' : 'over',
+          'type'              : 'image',
+          'titleFromAlt' : true
+        }
+        );
+      });
+    });
+
+    // $('.showAllHotels').click(function(event) {
+    //   $('.hotelWrapper').show();
+    //   $('html').click(function(event) {
+    //       if ($(event.target).parents('.showAllHotels').length==0) {
+    //           $('.hotelWrapper').hide();
+    //           $(this).unbind(event);
+    //       }
+    //   })
+    // });
+  </script>

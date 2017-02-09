@@ -1,0 +1,16 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+    {% include 'components/slider.twig' %}
+
+    <div class="col1-layout fleft overFlowed galleryDetails">
+        <div class="container">
+            {% include 'components/resort-gallery-listing.twig' %}
+        </div>
+    </div>
+
+    {# {% include 'components/quicklinks.twig' %} #}
+    {#{% include 'components/chooseUs.twig' %}#}
+
+{% endblock %}

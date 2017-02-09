@@ -1,0 +1,8 @@
+deploy:staging:
+  stage: deploy
+  environment: staging  
+  script:
+    - cd /var/www/html/demo/bipv3
+    - git pull origin develop
+  only:
+    - develop

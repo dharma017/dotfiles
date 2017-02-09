@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+{% block html_head_container %}
+
+	{% include 'html-header.twig' %}
+	{% block head %}
+	{% endblock %}
+</head>
+{% endblock %}
+
+<body data-template="base.twig">
+		<div class="main-container">
+		<header class="header" >
+			{% block header %}
+				{% include 'header.twig' %}
+			{% endblock %}
+		</header>
+		<div class="falseBlock">
+		</div>
+
+		{{ function('dimox_breadcrumbs') }}
+		{% block content %}
+			Sorry, no content
+		{% endblock %}
+
+		{% block footer %}
+			{% include 'footer.twig' %}
+			{{ function('wp_footer') }}
+		{% endblock %}
+	</div>
+	
+	<script type="text/javascript" src="{{ site.theme.link }}/assets/js/jquery.plugin.js"></script>
+	<script src="{{ site.theme.link }}/assets/js/modernizr/modernizr.custom.70736.js"></script>
+	<script src="{{ site.theme.link }}/assets/js/owl-carousel/owl.carousel.js"></script>
+	<!--Gama Gallery-->
+	<script src="{{ site.theme.link }}/assets/js/gamma/gamma.js"></script>
+	<script src="{{ site.theme.link }}/assets/js/gamma/jquery.masonry.min.js"></script>
+	
+	<script src="{{ site.theme.link }}/assets/js/main.js"></script>
+	
+	<!-- Latest compiled and minified JavaScript -->
+
+	{#<script>jQuery.noConflict();</script>#}
+
+	<script type="text/javascript" src="{{ site.theme.link }}/assets/js/picker.js"></script>
+	<script type="text/javascript" src="{{ site.theme.link }}/assets/js/picker.date.js"></script>
+	<script type="text/javascript" src="{{ site.theme.link }}/assets/js/picker.time.js"></script>
+
+	<script src="{{site.theme.link}}/assets/js/select2.min.js" type="text/javascript"></script>
+
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+
+	<script src="{{site.theme.link}}/static/site.js" type="text/javascript" async></script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+	$(".fancybox").fancybox({
+		    iframe: {
+		        preload: false
+		    }
+		});
+
+	$(".fancybox-flight").fancybox({
+		maxWidth	: 800,
+		maxHeight	: 600,
+		fitToView	: false,
+		width		: '70%',
+		height		: '70%',
+		autoSize	: false,
+		// closeClick	: false,
+		// openEffect	: 'none',
+		// closeEffect	: 'none'
+	        type: "iframe",
+	    });
+
+$(".room-fancybox").fancybox({
+	      
+	        maxWidth: "100px"
+	    });
+	});
+	</script>
+
+	<script type="text/javascript">
+	jQuery('.datepicker').pickadate({  format: 'yyyy-mm-dd' });
+	// jQuery('.datepicker').pickadate();
+	jQuery(".selectpicker").select2({
+		// minimumResultsForSearch: Infinity
+	});
+	jQuery(".from .selectpicker").select2({
+        placeholder: 'From'
+    });
+
+    jQuery(".to .selectpicker").select2({
+        placeholder: 'To'
+    });
+
+	jQuery(".from .selectpicker").select2({
+		placeholder: 'From',
+	});
+
+	jQuery(".to .selectpicker").select2({
+		placeholder: 'To'
+	});
+
+</script>
+<script src="{{site.theme.link}}/assets/js/jquery.cookie.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+   function closeThis(argument) {
+        $(".cookiesbar").hide();
+        $.cookie('tmt_cookie', 'Tmt Cookie', { expires: 7, path: '/'}); 
+    }
+    if($.cookie('tmt_cookie') == null) {
+            $(".tmt_cookie").show();
+        } 
+    else{
+            $(".cookiesbar").hide();
+    }
+    function ajaxindicatorstart(text)
+	{
+		if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+		jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="{{ site.theme.link ~ '/assets/img' }}/ajax-loader.gif"><div>'+text+'</div></div><div class="bg"></div></div>');
+		}
+		
+		jQuery('#resultLoading').css({
+			'width':'100%',
+			'height':'100%',
+			'position':'fixed',
+			'z-index':'10000000',
+			'top':'0',
+			'left':'0',
+			'right':'0',
+			'bottom':'0',
+			'margin':'auto'
+		});	
+		
+		jQuery('#resultLoading .bg').css({
+			'background':'#000000',
+			'opacity':'0.7',
+			'width':'100%',
+			'height':'100%',
+			'position':'absolute',
+			'top':'0'
+		});
+		
+		jQuery('#resultLoading>div:first').css({
+			'width': '250px',
+			'height':'75px',
+			'text-align': 'center',
+			'position': 'fixed',
+			'top':'0',
+			'left':'0',
+			'right':'0',
+			'bottom':'0',
+			'margin':'auto',
+			'font-size':'16px',
+			'z-index':'10',
+			'color':'#ffffff'
+			
+		});
+
+	    jQuery('#resultLoading .bg').height('100%');
+        jQuery('#resultLoading').fadeIn(300);
+	    jQuery('body').css('cursor', 'wait');
+	}
+
+	function ajaxindicatorstop()
+	{
+	    jQuery('#resultLoading .bg').height('100%');
+        jQuery('#resultLoading').fadeOut(300);
+	    jQuery('body').css('cursor', 'default');
+	}
+	
+  jQuery(document).ajaxStart(function () {
+   		//show ajax indicator
+		ajaxindicatorstart('Loading TMT Maldives...Please Wait...');
+  }).ajaxStop(function () {
+		//hide ajax indicator
+		ajaxindicatorstop();
+  });
+</script>
+</body>
+</html>

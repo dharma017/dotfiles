@@ -1,0 +1,92 @@
+    <div class="find-holiday">
+        <div class="container">
+            <div class="formCentered fullwidth fleft">
+                <div class="controlledWidth first fleft">
+                    <h4>Plan your <span>H<i class="fa fa-map-marker"></i>liday</span> a better way! Tailor Made Holiday Package</h4>
+                </div>
+                <form action="{{ site.link ~ '/book-a-resort' }}" id="prechecked">
+                    <div class="total_dates_check controlledWidth fleft">
+                        <div class="preCheckHeader fleft fullwidth">
+                            <i class="fa fa-calendar-check-o"></i> <span>YOUR STAY DATES</span>
+                        </div>
+                        <div class="datepickers fleft">
+                       <label>&nbsp;</label>
+                            <input type="text" name="arrival_date" placeholder="ARRIVAL DATE" class="datepicker form-control">
+                            {# <input type="text" placeholder="departure DATE" class="datepicker form-control"> #}
+                        </div>
+                        <div class="fleft">
+                        <label>&nbsp;</label>
+                        <select name="nights" class="selectpicker fullwidth fleft">
+                            <option>Nights</option>
+                            {% for i in 1..30 %}
+                            <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    </div>
+                    <div class="rooms_check controlledWidth fleft">
+                        <div class="preCheckHeader fleft fullwidth">
+                            <i class="fa fa-calendar-check-o"></i> <span>Rooms &amp; Guests</span>
+                        </div>
+                        <div class="fullwidth fleft">
+                            <div class="rooms">
+                                <label>rooms</label>
+                                <select name="rooms" class="selectpicker">
+                                    <option selected>Select</option>
+                                    {% for i in 1..10 %}
+                                    <option>{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="rooms">
+                                <label>adults</label>
+                                <select name="adults" class="selectpicker">
+                                    <option selected>Select</option>
+                                    {% for i in 1..10 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="rooms">
+                                <label>children</label>
+                                <select name="children" class="selectpicker">
+                                    <option selected>Select</option>
+                                    {% for i in 0..10 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="rooms">
+                                <label>infant</label>
+                                <select name="infant" class="selectpicker">
+                                    <option selected>Select</option>
+                                    {% for i in 0..10 %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="special_checks fleft">
+                        <div class="preCheckHeader fleft fullwidth">
+                            <i class="fa fa-plus"></i> <span>Resorts</span> </div>
+                        <div class="otherInfo">
+                        <label>Choose a Resort</label><br />
+                                <select name="id" class="selectpicker">
+                                    <option selected>Select</option>
+                                    {% for item in slider_resorts %}
+                                        <option value="{{ item.id }}">{{ item.title }}</option>
+                                        }
+                                    {% endfor %}
+                                </select>
+                                <a href="#" onclick="$(this).closest('form').submit()" class="btn btn-info top-search" type="button">SEARCH</a>
+                        </div>
+                    </div>
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>

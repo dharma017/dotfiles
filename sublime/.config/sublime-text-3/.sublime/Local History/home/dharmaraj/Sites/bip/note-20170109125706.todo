@@ -1,0 +1,16 @@
+SELECT TABLE_NAME, table_rows, data_length, index_length,
+round(((data_length + index_length) / 1024 / 1024),2) "Size in MB"
+FROM information_schema.TABLES WHERE table_schema = "bip"
+ORDER BY (data_length + index_length) DESC;
+
+DELETE FROM `ci_sessions`;
+
+Tasks remaining:
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214439
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214616
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214582
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/8278857
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214623
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214622
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214529
+	☐	https://websearchpro.teamwork.com/index.cfm#tasks/7214438

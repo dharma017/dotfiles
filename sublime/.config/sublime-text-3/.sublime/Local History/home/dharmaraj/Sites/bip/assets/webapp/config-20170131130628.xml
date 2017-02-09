@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.bupsll.bip" version="3.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Device">
+        <param name="browser-package" value="Device" />
+    </feature>
+    <name>BIP-appen</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#FFCC00" />
+    <preference name="orientation" value="portrait" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="ParseAppId" value="CEFrVe6WvhaO3fsYwvsYdV7acSrV6rpb7aWAts7P" />
+    <preference name="ParseServerUrl" value="https://parseapi.back4app.com/" />
+    <preference name="ParseClientKey" value="VOHsXC6M3rpOHLJ05JToadfS5qCT86UZpfnwyFZ3" />
+    <preference name="ParseGcmSenderId" value="899120845451" />
+    <preference name="ParseMultiNotifications" value="true" />
+</widget>

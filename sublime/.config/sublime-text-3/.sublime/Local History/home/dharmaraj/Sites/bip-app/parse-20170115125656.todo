@@ -1,0 +1,14 @@
+
+
+Parse keys
+
+--- ✄ -------------------------- ✄ -------------------------- ✄ -------------------------- ✄ -----------------------
+parse_push_url : https://parseapi.back4app.com/push
+parse_installations_url: https://parseapi.back4app.com/classes/_Installation
+parse_app_id: 83UvumCLXDMrfNYtxS78YKViHRsd8MZikaHkosAI
+parse_client_key: 5flFEgqlEoh95Dwcn7i8HLT7BOczD2B7mlTAhPZS
+parse_rest_api_key: i4ZfjpOHWQ6NHiWJqabyFQtRQ36T08Kako1NFYHO
+parse_master_key: xhcrYQoTpLWLawP8C5VFgAwyDonwj2U43avkOGyf
+
+GCMSenderId: 899120845451
+--- ✄ -------------------------- ✄ -------------------------- ✄ -------------------------- ✄ -----------------------

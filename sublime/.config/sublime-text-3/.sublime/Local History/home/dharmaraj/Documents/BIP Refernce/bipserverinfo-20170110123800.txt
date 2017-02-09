@@ -1,0 +1,294 @@
+vpn.ki.se
+Superlogin : supbjosod / %D4^B$*a$u0o
+MYSQL_PASS : root / CSWyKrEh8wH4
+Userlogin: bjosod / M_4GSWpOPs
+
+bip_dbuser/QrYjDdMp4234
+
+sudo /drift/scripts/deploy-bip-to-production.bash
+sudo /bin/rvim /drift/scripts/deploy-bip-to-production.bash
+
+https://account.ki.se
+Super pass: 8iLq73Lneg
+username:supbjosod
+Old Pass: 200SupBjoSod016
+New pass: %D4^B$*a$u0o
+
+Cisco VPN
+http:/ki.se/vpn to download the vpn client
+https://vpn1-gw.ki.se/+CSCOE+/logon.html
+
+HOST: vpn1-gw.ki.se
+Username:supbjosod
+Old Pass: 200SupBjoSod016
+New pass: %D4^B$*a$u0o
+
+https://vpn1-gw.ki.se/+CSCOE+/logon.html
+
+Preview Web Address
+k8bip01.ki.se
+
+SSH
+ssh bjosod@k8bip01.ki.se
+W4bhYhqNsk!S ( updated at november 14 )
+
+sudo -u apache /bin/bash
+password: W4bhYhqNsk!S
+
+DATABASE
+hostname => localhost
+username => bip_dbuser
+password => QrYjDdMp4234
+database => bip
+
+============
+# MYSQL TEST
+============
+
+sudo -u apache /bin/bash
+mysql --user=root --password=CSWyKrEh8wH4
+
+mysql --user=root --password=CSWyKrEh8wH4
+UPDATE `mysql`.`proc` p SET definer = 'bip_dbuser@localhost' WHERE definer='bip_dbuser@localhost' AND db='bip';
+
+mysql> select host, user, password from mysql.user;
+mysql> SELECT USER(), CURRENT_USER();
+mysql> CREATE UER 'demo-bip'@'localhost' IDENTIFIED BY '[same password as in your query]';
+mysql> show grants for 'demo-bip'@'localhost';
+mysql> desc mysql.user;
+
+To find the privilege(s) granted to a particular MySQL account:
+mysql> show grants for 'root'@'%';
+
+Change/Reset mysql root password
+
+update user set password=PASSWORD("CSWyKrEh8wH4") where User='root';
+FLUSH PRIVILEGES;
+exit;
+
+CREATE DATABASE bip CHARACTER SET utf8 COLLATE utf8_unicode_ci
+
+to list all commands that user can run as sudo
+sudo -l
+
+To see which groups you are in​
+-bash-4.2$ id
+uid=1006(bjosod) gid=1002(cns) groups=1002(cns),1003(cnsapa),1004(cnsroot)
+
+To open a terminal as apache user
+-bash-4.2$ sudo -u apache /bin/bash
+
+After that you can check which id you are right now
+bash-4.2$ id
+uid=48(apache) gid=48(apache) groups=48(apache)
+
+/home/bjosod rwx permission available
+ssh-keygen -t rsa works
+
+====================================================================
+# Preview the site:
+
+curl k8bip01.ki.se
+
+# Drop mysql user
+select host, user, password from mysql.user;
+DROP USER 'demo'@'localhost';
+
+sudo -u apache /bin/bash
+mysql -uroot -pCSWyKrEh8wH4
+
+select * from information_schema.user_privileges;
+
+SHOW DATABASES;
+
+CREATE DATABASE bip CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+DROP DATABASE bip;
+
+CREATE USER 'bip_dbuser'@'localhost' IDENTIFIED BY 'QrYjDdMp4234';
+
+GRANT ALL PRIVILEGES ON bip.* TO 'bip_dbuser'@'localhost';
+
+REVOKE ALL PRIVILEGES ON bip.* FROM 'bip_dbuser'@'localhost';
+
+GRANT SELECT, INSERT, UPDATE,ALTER,ALTER ROUTINE,CREATE,CREATE ROUTINE,CREATE TEMPORARY TABLES ON bip.* TO 'bip_dbuser'@'localhost';
+GRANT EXECUTE ON bip.* TO 'bip_dbuser'@'localhost';
+GRANT DELETE ON bip.* TO 'bip_dbuser'@'localhost';
+
+
+FLUSH PRIVILEGES;
+
+# Show user's privileges in MySQL
+show grants 'bip_dbuser'@'localhost';
+
+# Change/Reset mysql bip_dbuser password
+
+sudo -u apache /bin/bash
+mysql -uroot -pCSWyKrEh8wH4
+update user set password=PASSWORD("QrYjDdMp4234") where User='bip_dbuser';
+
+SET PASSWORD FOR 'bip_dbuser'@'localhost' = PASSWORD('QrYjDdMp4234');
+
+
+FLUSH PRIVILEGES;
+exit;
+
+=======================================================================
+# SCP file copy from desktop to server (failed, stalled status at 30%)
+=======================================================================
+
+scp bip.sql bjosod@k8bip01.ki.se:/home/bjosod
+scp bip.tar.gz bjosod@k8bip01.ki.se:/home/bjosod
+
+Rsync works (success)
+rsync -auvz --progress bip.tar.gz bjosod@k8bip01.ki.se:/home/bjosod
+
+DB Import (Success)
+
+ssh bjosod@k8bip01.ki.se
+mysql --user=root --password bip < bip.sql
+mysql --user=root --password
+show databases;
+use bip;
+show tables;
+SHOW PROCEDURE STATUS;
+SHOW FUNCTION STATUS;
+exit;
+
+Generating SSH Keys (success)
+
+ssh-keygen -t rsa
+
+Copied public key to gitlab.websearchpro.net (GITLAB hosted in office server)
+
+Adding your SSH key to the ssh-agent ( SSH clone failed, so did for testing)
+
+Ensure ssh-agent is enabled:
+eval "$(ssh-agent -s)"
+
+Add your SSH key to the ssh-agent:
+$ ssh-add ~/.ssh/id_rsa
+
+Git clone HTTPS (success)
+
+ssh bjosod@k8bip01.ki.see
+cd /home/bjosod
+git clone https://github.com/FreeCodeCamp/FreeCodeCamp.git
+
+Git clone SSH (failed)
+
+ssh bjosod@k8bip01.ki.see
+cd /home/bjosod
+git clone git@gitlab.websearchpro.net:php/bip.git
+
+Error Output:
+
+Cloning into 'bip'...
+
+ssh: connect to host gitlab.websearchpro.net port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+
+===========
+# Deployment
+===========
+
+sudo /drift/scripts/deploy-bip-to-production.bash
+sudo /bin/rvim /drift/scripts/deploy-bip-to-production.bash
+
+# Cleanup Session Tables
+SELECT TABLE_NAME, table_rows, data_length, index_length,
+round(((data_length + index_length) / 1024 / 1024),2) "Size in MB"
+FROM information_schema.TABLES WHERE table_schema = "bip"
+ORDER BY (data_length + index_length) DESC;
+
+DELETE FROM `ci_sessions`;
+
+## Test Git Clone
+
+ssh ubuntu@192.168.1.3 'git clone git@gitlab.websearchpro.net:php/bip.git /tmp/project'
+
+ssh bjosod@k8bip01.ki.se 'git clone git@gitlab.websearchpro.net:php/bip.git /tmp/project'
+
+## Sync assets/media files from live site ( barninternetprojektet.se )
+
+rsync -avuz --progress root@barninternetprojektet.se:/var/www/barninternetprojektet.se/images/uploads /tmp/deploy/shared/images
+
+cp -rf /tmp/deploy/shared/images/uploads/ /var/www/barninternetprojektet.se/shared/images
+
+rsync -avuz --progress root@barninternetprojektet.se:/var/www/barninternetprojektet.se/assets/sound_files /tmp/deploy/shared/assets
+
+cp -rf /tmp/deploy/shared/assets/ /var/www/barninternetprojektet.se/shared/
+
+rsync -avuz --progress root@barninternetprojektet.se:/var/www/barninternetprojektet.se/assets/sound_files /tmp/deploy/shared/assets
+
+scp root@barninternetprojektet.se:/home/_manual_backup/bip.2016-12-05-12.20.53.sql.gz .
+
+=========================================
+# New Server Configuration ( Deployment BASH Script )
+=========================================
+ssh bjosod@k8bip01.ki.se
+cd /home/bjosod/project
+mysql -uroot -pCSWyKrEh8wH4 bip < bip.2016-12-05-12.20.53.sql
+
+cd /tmp/deploy
+
+sudo -u apache /bin/bash
+password: W4bhYhqNsk!S
+
+php index.php user todo encrypt_decrypt_data bip_admin_user
+php index.php user todo encrypt_decrypt_data _revision_bip_admin_user
+php index.php user todo encrypt_decrypt_data bip_user
+php index.php user todo encrypt_decrypt_data _revision_bip_user
+php index.php user todo encrypt_decrypt_data bip_app_comments
+php index.php user todo encrypt_decrypt_data bip_worksheet_comments
+php index.php user todo encrypt_decrypt_data bip_form_data
+php index.php user todo encrypt_decrypt_data bip_message
+php index.php user todo update_bcrypt_password
+php index.php user todo reset_bcrypt_password
+
+mysqldump -uroot -pCSWyKrEh8wH4 bip --routines | gzip > bip.$(date +%Y-%m-%d-%H.%M.%S).sql.gz
+
+scp bip.2016-12-07-17.36.47.sql.gz root@barninternetprojektet.se:/home/_manual_backup/
+scp root@barninternetprojektet.se:/home/_manual_backup/bip.2016-12-07-17.36.47.sql.gz .
+mysql -uroot -pCSWyKrEh8wH4 bip < bip.2016-12-07-17.36.47.sql
+amu
+
+<VirtualHost  *:80>
+    #ServerAdmin webmaster@dummy-host.example.com
+    DocumentRoot /var/www/barninternetprojektet.se/current
+#    ServerName k8bip01.ki.se
+    ServerName bip.zapto.org
+    ServerAlias barninternetprojektet.se
+    #ErrorLog logs/dummy-host.example.com-error_log
+    #CustomLog logs/dummy-host.example.com-access_log common
+</VirtualHost>
+
+sudo /bin/rvim /etc/httpd/conf.d/25-barninternetprojektet.se.conf
+sudo /bin/systemctl restart httpd.service
+
+<VirtualHost *:80>
+ServerName bip.zapto.org
+ServerAlias barninternetprojektet.se
+DocumentRoot "/var/www/barninternetprojektet.se/current"
+<Directory "/var/www/barninternetprojektet.se/current">
+Options Indexes FollowSymLinks MultiViews
+# AllowOverride controls what directives may be placed in .htaccess files.
+AllowOverride All
+# Controls who can get stuff from this server file
+Order allow,deny
+Allow from all
+</Directory>
+<IfModule mpm_peruser_module>
+ServerEnvironment apache apache
+</IfModule>
+ErrorLog  /var/log/httpd/barninternetprojektet.se-error.log
+CustomLog /var/log/httpd/barninternetprojektet.se-access.log combined
+</VirtualHost>
+
+rsync --rsh='ssh' -av --progress --partial bjosod@k8bip01.ki.se:/drift/exports/mariadb/misqldb_bip_2016-12-20.sql.bz2 ~/Downloads/.
+ 
+ mysqldump -uwpuser -p'123456' -h192.168.1.3 bip --routines --no-create-info --no-data --no-create-db --skip-opt > stored_procedures.$(date +%Y-%m-%d-%H.%M.%S).sql
+

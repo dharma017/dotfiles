@@ -1,0 +1,1 @@
+SELECT * FROM bip_user WHERE username='dd' AND status='1' AND app_status='1' AND user_role='1' AND (CURDATE() BETWEEN STR_TO_DATE(active_from, '%Y-%m-%d') AND STR_TO_DATE(active_to,'%Y-%m-%d'))

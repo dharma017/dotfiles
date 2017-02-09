@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap://ready file://* *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no">
+    <title>BIP-app</title>
+    <link href="css/combined.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/combined.js"></script>
+
+</head>
+
+<body onload="onBodyLoad();">
+    <div class="sync-btn-holder" onclick="offlinehelper.prepareForSync();" style="display:none;">
+        <div class="sync-btn">
+        </div>
+    </div>
+    <div class="download-content-msg">
+            <div class="msg-content">
+                Innehållet laddas ner för användning i offline läge. Var vänlig vänta...
+            </div>
+            <div class="download-msg-preparing">Förbereder...</div>
+            <div class="download-progress-holder">
+                <div class='pc-done'>0%</div>
+                <div class="download-progress"></div>
+            </div>
+    </div>
+    <div class="download-overlay">
+    </div>
+    <div class='offline_dialogue dismis_offline_dialogue'><span style='float:right' class='dismis_offline_dialogue'>X</span>Du arbetar offline.</div>
+    <div id="downloading-files-progress">
+    <div class="file-dwnld-progress">
+    </div>
+    </div>
+    <div class="has-alert-message"  onclick="$('.has-alert-message').slideUp();">
+        <div class="fleft alert-icon">
+             <img src="images/alert_message.png" alt="" width="27" />
+        </div>
+        <div class="fleft alert-msg">
+            Du har ett nytt meddelande <br/>
+            i BIP från din behandlare.
+        </div>
+        <div class="fright alert-close" onclick="$('.has-alert-message').slideUp();"><i></i>Stäng</div>
+    </div>
+    <div data-role="page" id="Login" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+        <div class="smalllogo">
+            <img src="images/logosmall.png" alt="" />
+        </div>
+        </div>
+        <div data-role="content" class="innerWrapper login-wrapper" id="bodyContent">
+            <h1 class="ui-title box-size-border loginheader" data-key="Login">
+                Logga in</h1>
+         <!--    <h1 class="ui-title box-size-border loginheader" data-key="VerifyDevice" style="display:none;">
+                Device Verification</h1> -->
+            <form action="javascript:void(0);" method="post" id="loginForm" class="box-size-border">
+                <div data-role="fieldcontain" class="inputbox">
+                    <input type="text" id="txtEmail" placeholder="Användarnamn" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+                    <!-- <input type="text" id="txtEmail" placeholder="Användarnamn" /> -->
+                  <!--   <input type="text" id="verification_code" placeholder="Verification Code" style="display:none" maxlength="6" /> -->
+                    <input type="password" placeholder="Lösenord" id="txtPwd" />
+                </div>
+                <!-- <a href="javascript:void(0);" data-role="button" id="btnLogin">Logga in</a> -->
+                <button data-role="button" id="btnLogin">Logga in</button>
+               <!--  <a href="javascript:void(0)" id="wipe-cache" style="color:grey; font-size:12px;font-family:Arial;font-weight:normal">Töm appen</a> -->
+             <!--    <button data-role="button" id="btnVerify" style="display:none">Verify Device</button> -->
+            </form>
+            <div class="footer-contents">
+            <div class="app-version">BIP v2.0 Build 5.12.25</div>
+            <div class="clear-cache-container"><a href="javascript:void(0)" data-role="none" id="wipe-cache">, Töm appen</a></div>
+            <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="smsLogin" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent">
+            <h1 class="ui-title box-size-border loginheader" data-key="Login">
+                    SMS Logga</h1>
+            <form action="javascript:void(0);" method="post" id="smsloginForm" class="box-size-border">
+                <p class="smstext">Ett SMS med säkerhetskod skickas nu till din mobiltelefon. Det kan ta upp till 2 minuter.</p>
+                <p class="error" id="smserror" style="display:none;">Wrong SMS CODE</p>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <label data-key="smscode">Säkerhetskod:</label>
+                    <input type="text" id="smsCode" value="" />
+                </div>
+                <a href="javascript:void(0);" data-role="button" id="btnLoginSMS" onclick="Training.checksmsCode();">Logga in</a>
+            </form>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingList" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" class="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <!-- <a href="javascript:void(0);" onclick="return backpage('Login');" data-rel="add">Tillbaka</a> -->
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-autologout="0" data-rel="add" class="ui-btn-right btn_logout">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" id="bodyContent1" data-theme="c">
+            <div class="scroller" style="margin-top:41px;">
+                <div class='tag1'>
+                    <h1 class="ui-title box-size-border" data-key="Login">Träning</h1>
+                    <ul data-role="listview" id="lstTraining" class="bip-app-v2-ul mar-top-12">
+                    </ul>
+                </div>
+
+                <div class='tag2'>
+                    <h1 class="ui-title box-size-border" data-key="Login">Skattning</h1>
+                    <ul data-role="listview" id="lstTraining2" class="bip-app-v2-ul mar-top-12">
+                    </ul>
+                    <div class='hidethis' style="display: none;height:50px;width:100%;float:left">&nbsp;</div>
+                </div>
+                <!--
+                    Added by Sabin @ 16th April 2015 Start
+                    Navigation for Registration
+                -->
+               <!--   <div class='tag3'>
+                    <h1 class="ui-title box-size-border" data-key="Login">Självskada</h1>
+                    <ul data-role="listview" id="lstTraining3" class="bip-app-v2-ul mar-top-12"></ul>
+                </div> -->
+              <!-- Added by Sabin @ 16th April 2015 End -->
+
+                <ul data-role="listview" id="otherLst" class="bip-app-v2-ul mar-top-12">
+                    <li onclick="Graph.showActivityGraphperday();"><a class="total-icon" href="javascript:void(0);">Total träning alla dagar</a>
+                    </li>
+                    <li style="visibility: hidden;"><a href="javascript:void(0);" onclick="Graph.showActivityGraphperday();" class="total-icon">Total
+                                    träning alla dagar</a>
+                    </li>
+                    <!--<li><a href="#">Total aktivitet alla dagar</a></li> -->
+                </ul>
+                <div style="visibility: hidden;height:50px;width:100%;float:left">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div data-role="page" id="Register" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div id="overrideAlert"></div>
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('TrainingList',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt=""  />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" style="height:568px;" class="innerWrapper scrollwrapper" id="bodyContent2" data-theme="c">
+            <div class="scroller">
+                <h1 class="ui-title-large" data-key="register" style="height:38px; margin:0"><!--
+                        Helvetica Neue 32 pix title on exercise --></h1>
+                <div class="checkregister">
+                    <div class="checkicon unchecked">
+                        <div class="buttontext"><span class="makingcentermiddletext">asdhfjkhkjasdfhk asdjhfkas hdjkfha</span></div>
+                    </div>
+                    <h1 id="TaskHeading" class="makecentertoo"></h1>
+                    <!-- <div class="checktext">
+                            Markera träning som utförd
+                        </div>
+                        <span id="progressbar" class="sectioned box-size-border"></span> -->
+                </div>
+                <ul data-role="listview" id="otherLst" class="mar-top-12 list_activity">
+                    <li class='Traningsuppgift_show'><a href="javascript:void(0);" id="showWeeklyActivityOnGraph" data-onclick="Graph.showActivityGraphperweek();" class="total-icon">
+                            Aktivitet per vecka sedan start</a>
+                    </li>
+                    <li class='taskgraph' data-rel="taskgraph"><a href="javascript:void(0);" onclick="Graph.showEstimatesGraphfromstart();" class="estimate-icon">Skattningar från start </a>
+                    </li>
+                    <li class='Traningsuppgift_show'><a href="javascript:void(0);" onclick="Training.showTrainings();" class="calendar-icon">
+                                    Tidigare träning</a>
+                    </li>
+                </ul>
+                <div class="boundbox fleft smartning_stat" style='background:rgb(155, 178, 184); margin-top:12px; color:#000;'>
+                    <div class="antalveckor fleft" id="estimated_smartning"><span class="text fleft">
+                        Antal<br>skattningar</span> <span>3</span>
+                    </div>
+                    <div class="aktivet fright" style="width: auto;" id="noofdays_smartning">
+                        <span class="text fleft">Antal<br>dagar</span> <span>1</span>
+                    </div>
+                </div>
+                <div style="height: 150px; visibility: hidden;float:left;">
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Added by Sabin @ 16th April 2015. Page for Registration start -->
+    <div data-role="page" id="RegistrationTask" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('TrainingList',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" style="height:568px;" class="innerWrapper scrollwrapper" id="bodyContent2" data-theme="c">
+            <div class="scroller">
+                <div class="registrera-btn">
+                    <div class="regtaskicon unchecked" data-activeclass="full"  onclick="Registration.fetchRegistrations();">
+                        <div class="registrera-label"><span>Registrera</span></div>
+                    </div>
+
+                    <!-- <div class="checktext">
+                            Markera träning som utförd
+                        </div>
+                        <span id="progressbar" class="sectioned box-size-border"></span> -->
+                </div>
+                <ul data-role="listview" class="bip-app-v2-ul  mar-top-29 list_activity">
+                    <li id="li-v2-homeworks" class=''>
+                        <a id="v2-my-homework" href="javascript:void(0);" data-onclick="" class="my-homework-icon v2-sub-links">
+                            Mina hemuppgifter<div class='red-counter'>0</div>
+                        </a>
+
+                    </li>
+                    <li id="li-v2-skills" class=''>
+                        <a id="v2-my-skills" href="javascript:void(0);"  data-onclick="" onclick="MySkills.listModules()" class="my-skills-icon v2-sub-links">
+                            Mina färdigheter
+                        </a>
+                    </li>
+                    <li id="li-v2-crisisplan" class='crisis-plan' data-rel="crisis-plan">
+                        <a id="v2-my-crisisplan" href="javascript:void(0);" class="crisis-plan-icon v2-sub-links">
+                            Min Krisplan
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="RegistrationTask_List" class="page-app-v2" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Registrera</div>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list_registration_tasks list_registrations"></ul>
+               <ul data-role="listview" id="show-earlier-registration" class="bip-app-v2-ul  mar-top-12 list_earlier_registration">
+                    <li class='earlier-registration' data-rel="oldregistrations">
+                        <a href="javascript:void(0);" onclick="Registration.fetchRegistrations('old');" class="earlier-registration-icon">
+                            Tidigare registreringar
+                        </a>
+                    </li>
+              </ul>
+              <div style="height:100px">&nbsp;</div>
+            </div>
+
+        </div>
+    </div>
+    <div data-role="page" id="RegistrationTask_List_Old" class="page-app-v2" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask_List',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="step-title" style="padding:40px 0 0 10px!important">Tidigare registreringar</div>
+               <ul data-role="listview" class="bip-app-v2-ul  mar-top-12 list_registration_tasks list_registrations"></ul>
+            </div>
+            <div style="height:150px">&nbsp;</div>
+        </div>
+    </div>
+
+    <div data-role="page" id="RegistrationTask_Old_Details" class="page-app-v2" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask_List_Old',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="step-title" style="padding:40px 0 11px 10px!important">Tidigare registreringar</div>
+               <div id="my-summary-list" class="options-holder template-summary">
+                    <ul id='my_old_reg_summary_list' class='summary_list' data-role='listview' data-split-icon='edit' data-split-theme='f' data-inset='true'>
+                    </ul>
+               </div>
+                <div style="height:100px">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="RegistrationTask_Flows" class="page-app-v2" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask_List',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" style="height:568px;" class="innerWrapper scrollwrapper" id="bodyContent2" data-theme="c">
+            <div class="scroller registration-flows">
+               <h1 class="ui-title-large" data-key="register" style="height:38px; margin:15px 0 10px 0;font-weight:bold;font-size:25px;"></h1>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list_registration_tasks"></ul>
+            </div>
+
+        </div>
+    </div>
+    <div data-role="page" id="RegistrationTask_Steps" class="page-app-v2 grey-bg" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask_List',event,'slide'); Registration.StopYoutubeVideo();" data-rel="goback">Avbryt</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" onclick="Registration.StopYoutubeVideo();" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+                <div class="mini-links">
+                    <div class="fl steps-counter"></div>
+                </div>
+                <form method="post" id="frmRegistrationSteps" name="frmRegistrationSteps">
+                    <input type="hidden" name="registration_id" id="registration_id" value="" />
+                    <input type="hidden" name="reg_flow_id" id="reg_flow_id" value="0" />
+                    <input type="hidden" name="reg_assignment_id" id="reg_assignment_id" value="0" />
+                    <input type="hidden" name="app_reg_assignment_id" id="app_reg_assignment_id" value="0" />
+                    <div class="registration-steps-holder">
+
+                    </div>
+                </form>
+                 <div class="save-nav-holder text-step-button hide">
+                    <a href="javascript:void(0)" onclick="Registration.SaveRegistration();" class="registration-save-btn">Spara</a>
+                </div>
+                <div class="reg-navigation-holder hide">
+                        <div class="fl text-step-button">
+                            <a href="javascript:void(0)" onclick="Registration.navigateStep('prev');" class="reg-prev-step border-radius ui-btn ui-icon-previous" data-role="button">Tillbaka</a>
+                        </div>
+                        <div class="fr text-step-button">
+                            <a href="javascript:void(0)" onclick="Registration.navigateStep('next');"  class="reg-next-step border-radius ui-btn  ui-icon-next" data-role="button">Nästa</a>
+                        </div>
+                        <div class="clear"></div>
+                </div>
+                <div style="height:150px">&nbsp;</div>
+            </div>
+        </div>
+
+        <div data-role='popup' data-overlay-theme="a" id='popupAddAnswer' class='ui-corner-all'  data-position-to="window">
+
+            <div style='padding:10px 20px;'>
+                <h3>Lägg till eget svar</h3>
+                <input type='text' class='txt-custom-answers' name='add_custom_answer' id='add_custom_answer' placeholder='Eget svar' data-theme='d'>
+                <div class="text-step-button popup-btn">
+                <a href="javascript:void(0)" class='add-custom-answers border-radius ui-btn ui-btn-up-b fl' style="width:38%"  data-role='button'>Lägg till</a>
+                <a href="javascript:void(0)" class='border-radius ui-btn ui-btn-up-a fr'  style="width:38%"  data-role='button' onclick="$('#popupAddAnswer').popup('close');filehelper.showHideKeyBoard('hide');">Avbryt</a>
+                <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+         <div data-role='popup' data-overlay-theme="a" id='popupAddAnswerCat' class='ui-corner-all'>
+            <div style='padding:10px 20px;'>
+                <h3>Lägg till eget svar</h3>
+                <input type='text' class='txt-custom-answers' name='add_custom_answer_cat' id='add_custom_answer_cat' placeholder='Eget svar' data-theme='d'>
+                <div class="text-step-button popup-btn">
+                <a href="javascript:void(0)" class='add-custom-answers-cat border-radius ui-btn ui-btn-up-b fl' style="width:38%" data-role='button'>Lägg till</a>
+                <a href="javascript:void(0)" class='border-radius ui-btn ui-btn-up-a fr'  style="width:38%"  data-role='button' onclick="$('#popupAddAnswerCat').popup('close');filehelper.showHideKeyBoard('hide');">Avbryt</a>
+                <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Added by Sabin @ 16th April 2015. Page for Registration end -->
+
+    <!-- Added By Sabin @ 25th June 2015. Page for Homeworks, Crisisplan Start -->
+    <div data-role="page" class="page-app-v2" id="MyHomework_List" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Mina Hemuppgifter</div>
+               <ul data-role="listview"  class="bip-app-v2-ul mar-top-12 list_my_homeworks list_homeworks with-border">
+               </ul>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div data-role="page" class="page-app-v2" id="MyHomework_Contents" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyHomework_List',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+                <div class="registrera-btn page-title-v2 hw-heading"></div>
+                <div class='html-contents hw-contents'></div>
+                <div style="height: 100px; visibility: hidden;">
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Crisis Plan-->
+    <div data-role="page" class="page-app-v2" id="MyCrisisplan_List" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Mina Krisplan</div>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list_my_crisisplans list_crisisplans with-border">
+               </ul>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div data-role="page" class="page-app-v2" id="MyCrisisplan_Contents" data-theme="b" data-transition="slide">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+                <div class='registrera-btn page-title-v2 cp-heading'></div>
+                <div class='html-contents cp-contents'></div>
+                <div style="height: 100px; visibility: hidden;">
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Crisis Plan -->
+
+
+    <!-- Added By Sabin @ 25th June 2015. Page for Homeworks, Crisisplan End -->
+    <!-- Added By Sabin @ 27th August 2015. Other modules Start -->
+    <div data-role="page" id="MySkills_Module" class="page-app-v2" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('RegistrationTask',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Mina färdigheter</div>
+              <div class="module-icons-stuffs">
+              </div>
+              <div style="height:150px; visibility:hidden;">&nbsp;</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="page" id="MyModule_AvailSkills" class="page-app-v2" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MySkills_Module',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Test</div>
+               <div class="skills-container-feelings" style="display:none"></div>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list-module-available-skills with-border" style="display:none">
+               </ul>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+     <div data-role="page" id="MyModule_ExposureList" class="page-app-v2 my-all-skills" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_AvailSkills',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Test</div>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list-module-available-skills with-border">
+               </ul>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+     <div data-role="page" id="MyModule_ThoughtList" class="page-app-v2 my-all-skills" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_AvailSkills',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Test</div>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list-module-available-skills with-border">
+               </ul>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="page" id="MyModule_SkillList" class="page-app-v2 my-all-skills" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_AvailSkills',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+               <div class="registrera-btn page-title-v2">Test</div>
+               <ul data-role="listview" class="bip-app-v2-ul mar-top-12 list-module-available-skills with-border">
+               </ul>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="page" id="MyModule_SkillDetails" class="page-app-v2 grey-bg" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_ThoughtList',event,'slide');" data-rel="goback">Avbryt</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c" style="height: 548px; overflow: hidden;">
+            <div class="scroller">
+                <div class="registrera-btn page-title-v2">Test</div>
+               <div class="skill-contents">
+
+               </div>
+               <div style="height: 80px; visibility: hidden;">
+                   &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="page" id="MyModule_ExposureSteps" class="page-app-v2 grey-bg" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_ExposureList',event,'slide');" data-rel="goback">Avbryt</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+
+                <form name="frmExposureTask" id="frmExposureTask" method="post">
+                    <div class="skill-contents">
+                    </div>
+                </form>
+
+                <div class="exposure-navigation">
+                    <div class="feelings-save-nav-holder text-step-button hide">
+                        <a href="javascript:void(0)" style="text-align:center" onclick="MySkills.saveExposureTask($(this))" class="feelings-save-btn">Avsluta</a>
+                    </div>
+                    <div class="feelings-navigation-holder">
+                            <div class="fl text-step-button">
+                                <a href="javascript:void(0)" onclick="MySkills.exposureNavigation('prev','exposure')" class="reg-prev-step border-radius ui-btn ui-icon-previous" data-role="button">Tillbaka</a>
+                            </div>
+                            <div class="fr text-step-button">
+                                <a href="javascript:void(0)" onclick="MySkills.exposureNavigation('next','exposure')"  class="reg-next-step border-radius ui-btn  ui-icon-next" data-role="button">Nästa</a>
+                            </div>
+                            <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+               <div style="height: 80px; visibility: hidden;"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div data-role="page" id="MyModule_SkillsSteps" class="page-app-v2 grey-bg" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_SkillList',event,'slide');" data-rel="goback">Avbryt</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+
+                <form name="frmSkillTask" id="frmSkillTask" method="post">
+                    <div class="skill-contents">
+                    </div>
+                </form>
+
+                <div class="exposure-navigation">
+                    <div class="feelings-save-nav-holder text-step-button hide">
+                        <a href="javascript:void(0)" style="text-align:center" onclick="MySkills.saveSkillTask($(this))" class="feelings-save-btn">Avsluta</a>
+                    </div>
+                    <div class="feelings-navigation-holder">
+                            <div class="fl text-step-button">
+                                <a href="javascript:void(0)" onclick="MySkills.exposureNavigation('prev','skills')" class="reg-prev-step border-radius ui-btn ui-icon-previous" data-role="button">Tillbaka</a>
+                            </div>
+                            <div class="fr text-step-button">
+                                <a href="javascript:void(0)" onclick="MySkills.exposureNavigation('next','skills')"  class="reg-next-step border-radius ui-btn  ui-icon-next" data-role="button">Nästa</a>
+                            </div>
+                            <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+               <div style="height: 80px; visibility: hidden;"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div data-role="page" id="MyModule_FeelingsDetails" class="page-app-v2 grey-bg" data-theme="b" data-transition="slide">
+
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('MyModule_AvailSkills',event,'slide'); " data-rel="goback">Avbryt</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" data-theme="c">
+            <div class="scroller">
+                <div class="feeling-steps-holder">
+                </div>
+
+                <div class="btn-wrappers">
+                    <div class="feelings-save-nav-holder text-step-button hide">
+                        <a href="javascript:void(0)" style="text-align:center" onclick="MySkills.saveFeelingAssignment($(this))" class="feelings-save-btn">Klar</a>
+                    </div>
+                    <div class="feelings-navigation-holder hide">
+                            <div class="fl text-step-button">
+                                <a href="javascript:void(0)" onclick="MySkills.navigateFeelingSteps('prev');" class="reg-prev-step border-radius ui-btn ui-icon-previous" data-role="button">Tillbaka</a>
+                            </div>
+                            <div class="fr text-step-button">
+                                <a href="javascript:void(0)" onclick="MySkills.navigateFeelingSteps('next');"  class="reg-next-step border-radius ui-btn  ui-icon-next" data-role="button">Nästa</a>
+                            </div>
+                            <div class="clear"></div>
+                    </div>
+                </div>
+                <div style="height:80px;float:left;width:100%">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    <!-- Added By Sabin @ 27th August 2015. Other modules END -->
+
+
+
+
+    <div data-role="page" id="TrainingZone" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('Register',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent4" data-theme="c">
+            <div class="popup" id="trainingZoneContent">
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_1_1" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 1 av 2</span>
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle" id="training_type_1_anxiety">Hur kändes det?</div>
+                    <div id="subTitle"></div>
+                    <div class="range" id="divpopuprange"><span class="range_label_ten">10=maximalt</span>
+                        <span class="range_label_zero">0 =inget (ångest, rädsla, obehag)</span>
+                    </div>
+                    <div class="rangeslider " id="rangeslider_1_1">
+                        <!-- <div class="numtext">
+                                <div class="textbar">10</div>
+                                <div class="textbar">9</div>
+                                <div class="textbar">8</div>
+                                <div class="textbar">7</div>
+                                <div class="textbar">6</div>
+                                <div class="textbar">5</div>
+                                <div class="textbar">4</div>
+                                <div class="textbar">3</div>
+                                <div class="textbar">2</div>
+                                <div class="textbar">1</div>
+                                <div class="textbar">0</div>
+                            </div>-->
+                        <input type="range" name="slider-fill" id="slider-fill" value="0" min="0" max="10" data-highlight="true" sliderorientation="verticalInverted" step="1" />
+                        <span class="slider-fill-span" id="slider-fill-span"></span>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" data-onclick="Training.process.nextStep()" class="next border-radius green-gradient" id="training_type_1_next">
+                            <!-- Nästa -->Forsätt</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_1_2_1" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('Register',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent">
+                <div class="popupContent box-size-border border-radius">
+                    <div class="fixedtop">
+                        <!-- <span class="steps">1 av 3</span> -->
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle">
+                        När utfördes träningen?</div>
+                    <div class="popupTime">
+                        <span>2013-08-21
+                                    <br />
+                                    12:22</span>
+                        <input type="text" id="practicedate" style="display: none;" data-role="none" class="bipDate" />
+                        <a href="javascript:void(0);" id="btnpracticedate" class="checkactivity blue-gradient border-radius">
+                                        Ändra datum och tid</a>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0)" onclick="changepage('TrainingZone_1_2','none')" class="next border-radius green-gradient">Nästa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_1_2" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent step3 box-size-border border-radius">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 2 av 2</span>
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popUpsectioned"><span class="treattitle">Samanfattning:</span>
+                    </div>
+                    <div class="popUpsectioned box-size-border">
+                        <div class="datetimesection">
+                            <span class="datetimelabel">Datum</span> <span class="datetimestrong datestrong">2013-08-21
+                                        </span>
+                        </div>
+                        <div class="datetimesection last box-size-border">
+                            <span class="datetimelabel">Tid</span> <span class="datetimestrong timestrong">12: 22
+                                    </span>
+                        </div>
+                        <a id="edit_practiced_date_single" href="javascript:void(0);" data-onclick="changepage('TrainingZone_1_2_1','none')" class="checkactivity grey-gradient border-radius">Ändra datum och
+                                    tid</a>
+                    </div>
+                    <div class="popUpsectioned major-content-box box-size-border">
+                        <div class="dinskating">
+                            Din Skattning
+                            <br />
+                            <strong id="sliderVal">8 av 10</strong>
+                        </div>
+                        <a href="javascript:void(0);" data-onclick="backpage('TrainingZone_1_1',event);" onclick="Training.process.previousStep(event)" class="checkactivity grey-gradient border-radius">Ändra skattning</a>
+                    </div>
+                    <div class="popUpsectioned box-size-border noBorder">
+                        <div class="dinskating">
+                            Kommentar:</div>
+                        <textarea id="txtComments" data-role="none"></textarea>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" id="savetraining" class="next border-radius green-gradient">
+                            <!-- Klar -->Spara</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_2_1" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent4" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius" style="height: 360px">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 1 av 5</span><a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle newTitle" id="divpopupTitle">1. Förnbered dig</div>
+                    <p class="trainingDContent"></p>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" data-onclick="Training.process.nextStep();" class="next border-radius green-gradient">Fortsätt</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_2_2" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent4" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 2 av 5</span>
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle newTitle" id="divpopupTitle">2. Skatta start</div>
+                    <div class="" id="subTitle"></div>
+                    <div class="">
+                        <div class="range" id="divpopuprange"><span class="range_label_ten">10=maximalt</span><span class="range_label_zero">0 =inget (ångest, rädsla, obehag)</span>
+                        </div>
+                        <div class="rangeslider" id="rangeslider_2_2">
+                            <!--   <div class="numtext">
+                                    <div class="textbar">10</div>
+                                    <div class="textbar">9</div>
+                                    <div class="textbar">8</div>
+                                    <div class="textbar">7</div>
+                                    <div class="textbar">6</div>
+                                    <div class="textbar">5</div>
+                                    <div class="textbar">4</div>
+                                    <div class="textbar">3</div>
+                                    <div class="textbar">2</div>
+                                    <div class="textbar">1</div>
+                                    <div class="textbar">0</div>
+                                </div>-->
+                            <input type="range" name="slider-fill" id="slider-fill_2_2" value="0" min="0" max="10" data-highlight="true" sliderorientation="verticalInverted" step="1" />
+                            <span class="slider-fill-span" id="slider-fill-span_2_2"></span>
+                        </div>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" onclick="Training.process.startClock();" class="next border-radius green-gradient">Börja träna</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_2_3" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent4" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius" style="height: 420px">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 3 av 5</span>
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle newTitle" id="divpopupTitle">3. Träna nu</div>
+                    <div class="popUptext">
+                        <p class="popUpimg"><img style="width:150px;" src="/images/ajax-loader.gif" alt="" /><span id="showstopwatch"></span>
+                        </p>
+                        <div id="itextScroll" style="height:110px;position:relative;z-index:100;display:block;">
+                            <p style="position:absolute;top:0px;" class="trainingDContent">Troligtvis känns det rätt besvärligt just nu. Men tänk på att ångesten sjunker efter ett tag, som i ”löken”-modellen.Försök att träna på din uppgift till ångesten har sjunkit till hälften. </p>
+                        </div>
+                        <div class="stopwatch">
+                            <span class="time"></span>
+                        </div>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" onclick="Training.process.stopClock();" class="next border-radius green-gradient">Avsluta träning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_2_4" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent4" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 4 av 5</span>
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle newTitle" id="divpopupTitle">4. Skatta slut</div>
+                    <div class="" id="subTitle"></div>
+                    <div class="range" id="divpopuprange"><span class="range_label_ten">10=maximalt</span><span class="range_label_zero">0 =inget (ångest, rädsla, obehag)</span>
+                    </div>
+                    <div class="rangeslider" id="rangeslider_2_4">
+                        <!--  <div class="numtext">                    <div class="textbar">10</div>                    <div class="textbar">9</div>                    <div class="textbar">8</div>                    <div class="textbar">7</div>                    <div class="textbar">6</div>                    <div class="textbar">5</div>                    <div class="textbar">4</div>                    <div class="textbar">3</div>                    <div class="textbar">2</div>                    <div class="textbar">1</div>                    <div class="textbar">0</div>
+                        </div>-->
+                        <input type="range" name="slider-fill" id="slider-fill_2_4" value="0" min="0" max="10" data-highlight="true" sliderorientation="verticalInverted" step="1" /> <span class="slider-fill-span" id="slider-fill-span_2_4"></span>
+                    </div>
+                    <div class="popupbuttons"> <a href="javascript:void(0);" class="next border-radius green-gradient">Godkänn tid</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingZone_2_5" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="bodyContent4" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius" style="height: 360px">
+                    <div class="fixedtop">
+                        <span class="steps">Steg 5 av 5</span>
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle newTitle" id="divpopupTitle">5. Godkänn tid</div>
+                    <div class="popUptext">
+                        <p id="trainingCndnlContent">Troligtvis känns det rätt besvärligt just nu. Men tänk på att ångesten sjunker efter ett tag, som i ”löken”-modellen. Försök att träna på din uppgift till ångesten har sjunkit till hälften. </p>
+                        <div id="trainingTimeSpentWrapper">
+                            <div id="defaultTimeSpent">
+                                <p class="popUptid">
+                                    <!-- <span id="trainingTimeSpent">17 min</span>                    <br />
+                            <a href="javascript:void(0);" id="editTime"   class="border-radius"> Ändra tid</a> -->
+                                </p>
+                            </div>
+                            <div id="editTimeSpent">
+                                <input id="training_span" class="trainingTime newtime" />
+                                <span id="dintid" style="display:block;margin-top:-40px">Din tid</span>
+                                <!--  <div class="minute_edit">
+                                <select id="training_span_minutes" data-role="none">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+                                </select>Minuter
+                            </div>
+                            <div class="second_edit">
+                                <select id="training_span_seconds" data-role="none">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+                                    <option value="60">60</option>
+                                </select> Sekunder
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" id="savetraining2" class="next border-radius green-gradient">Klart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="Tidigare" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('Register',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" id="bodyContent5" data-theme="c">
+            <div class="scroller" style="">
+                <h1 class="ui-title-large makecentertoo" id="taskTitle" data-key="register">
+                Ga hem fran skolan sjalv och vara sjalv hemma en timme</h1>
+                <h1 class="ui-title-small" data-key="register">
+                    Tidigare träning</h1>
+                <ul data-role="listview" id="otherLst" class="mar-top-12">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--review the old training data-->
+    <div data-role="page" id="tidigare_review" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="reviewBodyContent" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius" style="height: 360px">
+                    <div class="fixedtop">
+                        <a href="javascript:void(0);" onclick=" backpage('Tidigare', event,'slide');" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle newTitle">Tidigare träning</div>
+                    <div class="popUptext">
+                        <div id="review_date_1_2" class="bip_review_item">
+                            <div class="bip_left_side dates">
+                                <span class="bip_label">Datum och tid:<br />
+                                        <p id="training_review_datetime" class="trainingDContent"></p>
+                                    </span>
+                                <!-- <span class="bip_value"></span> -->
+                            </div>
+                            <input id="tidigare_date_1_2" type="text" style="display:none" data-role="none" class="tidigareDate" />
+                            <div class="bip_right_side">
+                                <a href="javascript:void(0);" class="bip_edit_date border-radius">Ändra</a>
+                            </div>
+                        </div>
+                        <div id="review_rating_1_1" class="bip_review_item">
+                            <div class="bip_left_side">
+                                <span class="bip_label">Skattning:&nbsp;</span><span class="bip_value"></span>
+                            </div>
+                            <div class="bip_right_side">
+                                <a href="javascript:void(0);" class="bip_edit_rating border-radius">Ändra</a>
+                                <select class="bip_hidden rating_values" data-role="none">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="review_rating_2_2" class="bip_review_item">
+                            <div class="bip_left_side">
+                                <span class="bip_label">Skatta start:&nbsp;</span><span class="bip_value"></span>
+                            </div>
+                            <div class="bip_right_side">
+                                <a href="javascript:void(0);" class="bip_edit_rating border-radius">Ändra</a>
+                                <select class="bip_hidden rating_values" data-role="none">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="review_rating_2_4" class="bip_review_item">
+                            <div class="bip_left_side">
+                                <span class="bip_label">Skatta slut:&nbsp;</span><span class="bip_value"></span>
+                            </div>
+                            <div class="bip_right_side">
+                                <a href="javascript:void(0);" class="bip_edit_rating border-radius">Ändra</a>
+                                <select class="bip_hidden rating_values" data-role="none">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="review_time_taken" class="bip_review_item">
+                            <div class="bip_left_side">
+                                <span class="bip_label">Tid&nbsp;</span><span class="bip_value bip_hidden"></span>
+                            </div>
+                            <div class="bip_right_side">
+                                <!-- <a href="javascript:void(0);" class="bip_edit border-radius">Ändra</a> -->
+                                <div id="editminute" class="minute_edit">
+                                    <input type="text" id="tidigareTimeEdit" class="newtime" readonly="readonly">
+                                    <!--  <select class="min bip_hidden" data-role="none">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+                                </select>
+                                <select class="sec bip_hidden" data-role="none">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+                                </select> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div id="review_comment" class="bip_review_item bip_hidden">
+                            <div class="bip_left_side">
+                                <span class="bip_label">Comment:&nbsp;</span><span class="bip_value"></span>
+                            </div>
+                            <div class="bip_right_side">
+                                <textarea data-role="none" class=""></textarea>
+                            </div>
+                        </div>
+                        <div class="popupbuttons">
+                            <a href="javascript:void(0);" onclick="Training.saveReviewedTraining();" class="next border-radius green-gradient">Spara</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="tidigare_review_rating" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+        </div>
+        <div data-role="content" class="innerWrapper" id="reviewRatingBodyContent" data-theme="c">
+            <div class="popupwrapper"></div>
+            <div class="popup trainingZoneContent" id="">
+                <div class="popupContent box-size-border border-radius" style="height: 360px">
+                    <div class="fixedtop">
+                        <a href="javascript:void(0);" class="abort border-radius red-gradient">Avbryt</a>
+                    </div>
+                    <div class="popupTitle">Edit</div>
+                    <div>
+                        <div id="divpopuprange" class="range">
+                            <span class="range_label_ten">10 = Omöjlit1</span>&nbsp; &nbsp;<span class="range_label_zero">0 = Enkel</span>
+                        </div>
+                        <div class="rangeslider rangeslider_reveiw_rating" id="rangeslider_reveiw_rating">
+                            <input type="range" name="slider-fill" class="slider-fill_reveiw_rating" id="slider-fill_reveiw_rating" value="0" min="0" max="10" data-highlight="true" sliderorientation="verticalInverted" step="1" />
+                            <span class="slider-fill-span" id="slider-fill-span_reveiw_rating"></span>
+                        </div>
+                    </div>
+                    <div class="popupbuttons">
+                        <a href="javascript:void(0);" onclick="backpage('tidigare_review',event,'none');" class="next border-radius green-gradient">Spara1</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div data-role="page" id="TrainingStats" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('Register',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" id="bodyContent8" data-theme="c">
+            <div class="scroller">
+                <h1 class="ui-title-large makecentertoo" id="perweekgraphHeading" data-key="register">
+                Ga hem fran skolan sjalv och vara sjalv hemma en timme</h1>
+                <div class="boundbox">
+                    <h1 class="ui-title-small" data-key="register">
+                        Tidigare träning</h1>
+                    <div class="chart box-size-border" id="divActivityperweekgraphs">
+                    </div>
+                </div>
+                <div class="boundbox fleft">
+                    <div class="antalveckor fleft" id="ActivityAntalVector">
+                        <span class="text fleft">Antal<br />
+                                Veckor</span> 7
+                    </div>
+                    <div class="antaldagar fleft" id="ActivityAntalDagar">
+                        <span class="text fleft">Antal<br />
+                                    Dagar</span> 68
+                    </div>
+                    <div class="aktivet fright" id="Activitysedanstart">
+                        <span class="text fleft">Aktivitet<br />
+                                        sedan start</span> 79
+                    </div>
+                </div>
+                <div class="boundbox fleft">
+                    <div class="datestart fleft" id="divStartdatum">
+                        Startdatum 2013-09-21</div>
+                    <div class="enddate fright" id="divDegensdatum">
+                        Dagens datum 2013-11-05</div>
+                </div>
+                <div style="height: 250px; visibility: hidden;">
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="Trainingstatperday" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('TrainingList',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" id="bodyContent6" data-theme="c">
+            <div class="scroller">
+                <h1 class="ui-title-large makecentertoo" data-key="register">Total aktivitet alla dagar
+                                        </h1>
+                <div class="boundbox">
+                    <h1 class="ui-title-small" data-key="register">
+                                                Träning per vecka</h1>
+                    <div class="chart box-size-border" id="divTrainingStatPerday">
+                    </div>
+                </div>
+                <div class="boundbox fleft">
+                    <div class="antalveckor fleft" id="ActivityAntalVectorperday">
+                        <span class="text fleft">Antal<br />
+                                                        Veckor</span> 7
+                    </div>
+                    <div class="antaldagar fleft" id="AntalDagarPerday">
+                        <span class="text fleft">Antal<br />
+                                                            Dagar</span> 68
+                    </div>
+                    <div class="aktivet fright" id="AktivitetsedanstartPerday">
+                        <span class="text fleft">Aktivitet<br />
+                                                                sedan start</span> 79
+                    </div>
+                </div>
+                <div class="boundbox fleft">
+                    <div class="datestart fleft" id="datestartperday">
+                        Startdatum 2013-09-21</div>
+                    <div class="enddate fright" id="dateendPerday">
+                        Dagens datum 2013-11-05</div>
+                </div>
+                <div style="height: 250px; visibility: hidden;">
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="page" id="TrainingRating" data-theme="b">
+        <!-- ====== main content starts here ===== -->
+        <div data-role="header" id="headerTop" data-nobackbtn="false" data-theme="b">
+
+            <a href="javascript:void(0);" onclick="return backpage('Register',event,'slide');" data-rel="goback">Tillbaka</a>
+            <div class="smalllogo">
+                <img src="images/logosmall.png" alt="" />
+            </div>
+            <a data-role="" href="javascript:void(0);" onclick="return backpage('Login',event);" data-rel="add">Logga ut</a>
+        </div>
+        <div data-role="content" class="innerWrapper scrollwrapper" id="bodyContent7" data-theme="c">
+            <div class="scroller">
+                <h1 class="ui-title-large makecentertoo" data-key="register" id="trainingRating">
+                                                                    Helvetica Neue 32 pix title on exercise</h1>
+                <div class="boundbox fleft">
+                    <h1 class="ui-title-small" data-key="register">
+                                                                            Skattningar sedan start</h1>
+                    <div class="barchart box-size-border">
+                        <div class="numtext">
+                            <div class="textbar">
+                                10
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 9
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 8
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 7
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 6
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 5
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 4
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 3
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 2
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 1
+                            </div>
+                            <div class="textbar">
+                                &nbsp; 0
+                            </div>
+                        </div>
+                        <div class="lines" id="divRatingLines">
+                        </div>
+                    </div>
+                </div>
+                <div class="boundbox fleft">
+                    <div class="antalveckor fleft" id="EstimateAntalskattningar">
+                        <span class="text fleft">Antal
+                                                                            <br />
+                                                                            skattningar</span> 24
+                    </div>
+                    <div class="aktivet fright" style="width: auto;" id="EstimateAntaldagar">
+                        <span class="text fleft">Antal<br />
+                                                                                dagar</span> 79
+                    </div>
+                </div>
+                <div class="boundbox fleft">
+                    <div class="datestart fleft" id="EstimateStartdatum">
+                        Startdatum 2013-09-21</div>
+                    <div class="enddate fright" id="EstimateDegansdatum">
+                        Dagens datum 2013-11-05</div>
+                </div>
+                <div style="height: 150px; visibility: hidden;float:left;">
+                    &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='pagename' style="display:none;"></div>
+
+    <div class="alertbox">
+    <div class="alertbox-bg">&nbsp;</div>
+    <div class="alertboxcontent">
+        <div class="alerttitle">This is the default alert box message</div>
+        <div class="popupbuttons"><a href="javascript:void(0);" class="next border-radius green-gradient ui-link alertok" id="training_type_1_next">OK</a>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

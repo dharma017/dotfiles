@@ -1,0 +1,71 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+    {% include 'components/inner-slider.twig' %}
+
+    <div class="col1-layout fleft overFlowed overFlowedAlternative">
+        <div class="container">
+            <div class="fullwidth fleft resortDetailWrapper resortTypeDetails">
+                {% include 'components/resort-main-text.twig' %}
+</div>
+            <div class="col70 fright resortDetailWrapper hide">
+                {# {% include 'components/resort-main-text.twig' %} #}
+
+            </div>
+            <div class="col30 fleft hide">
+                
+
+                <div class="chooseTypes">
+                    <div class="typesFrom">
+                       {#  <img src="http://www.abodeparadise.com/beta/image.php?src=http://www.abodeparadise.com/system/photos/package_images/112524Ara Iru Restaurant.jpg&h=480&w=680&zc=1" alt="4 Nights Booking Package" class="img-responsive">
+                        <i class="fa fa-star" style="color:gold; "></i><i class="fa fa-star" style="color:gold; "></i><i class="fa fa-star" style="color:gold; "></i><i class="fa fa-star" style="color:gold; "></i>
+                        <span class="pricelist"><sup>$</sup>620<sup>PP</sup></span> #}
+                        <h3 class="fullwidth fleft hasMargin">HOLIDAY TYPES</h3>
+                        <ul>
+                            {% for item in holiday_types %}
+                            <li>
+                                <a href="{{ item.link }}">{{ item.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h3 class="fullwidth fleft hasMargin">ROOM TYPES</h3>
+                        <ul>
+                            {% for item in room_types %}
+                            <li>
+                                <a href="{{ item.link }}">{{ item.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h3 class="fullwidth fleft hasMargin">Special Offers</h3>
+                        <ul>
+                            {% for item in special_offers %}
+                            <li>
+                                <a href="{{ item.link }}">{{ item.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <h4 style="float:left; margin-top: 30px; margin-bottom: 5px;">WIFI</h4>
+                        <ul>
+                            {% if post.wifi == 'free' %}
+                            <li><a href="#"><span><i class="fa fa-wifi"></i></span> Resorts with Free WIFI</a></li>
+                                
+                            {% else %}
+                            <li><a href="#"><span><i class="fa fa-signal"></i></span> Resorts with Paid WIFI</a></li>
+                                
+                            {% endif %}
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {# {% include 'components/quicklinks.twig' %} #}
+    {#{% include 'components/chooseUs.twig' %}#}
+
+{% endblock %}

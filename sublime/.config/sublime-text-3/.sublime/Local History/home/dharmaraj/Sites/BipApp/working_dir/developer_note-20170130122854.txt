@@ -1,0 +1,22 @@
+##Gulp workflow instruction## 
+
+
+setup instructions
+==================
+
+install nodejs
+verify by checking the version
+
+`node -v`
+`npm -v`
+
+goto terminal with this path
+make sure package.json exists
+
+`npm install`
+If the node packages are not already instlled above command will install all the dependencies
+
+
+See gulp.js file for the build configuration
+the default task can be run with following command
+`gulp`

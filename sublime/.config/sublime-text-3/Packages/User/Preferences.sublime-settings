@@ -1,7 +1,7 @@
 {
 	"binary_file_patterns":
 	[
-		"nodde_modules/",
+		"node_modules/",
 		"vendor",
 		"tmp/",
 		"bower_components/"
@@ -14,13 +14,14 @@
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
 	"fade_fold_buttons": false,
 	"font_face": "inconsolas",
-	"font_size": 16,
+	"font_size": 13,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
 		"AlignTab",
 		"CodeFormatter",
+		"SublimeCodeIntel",
 		"Vintage"
 	],
 	"indent_guide_options":
@@ -35,5 +36,5 @@
 	"sidebar_medium": true,
 	"theme": "Cobalt2.sublime-theme",
 	"wide_caret": true,
-	"word_wrap": true 
+	"word_wrap": true
 }

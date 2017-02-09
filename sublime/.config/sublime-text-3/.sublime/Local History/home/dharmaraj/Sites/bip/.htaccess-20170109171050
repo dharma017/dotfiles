@@ -1,0 +1,32 @@
+server {
+    listen       80;
+    server_name  www.example.com example.com;
+
+    root /var/www/example.com/html;
+    index index.php index.html index.htm;
+
+    # Enable rewrite error log
+    # error_log /var/log/nginx/localhost.error_log debug;
+    # rewrite_log on;
+
+    # Any HTTP request other than those for assets folder, files folder and robots.txt
+    # is treated as a request for your index.php file.
+    location ~* ^/(assets|files|robots\.txt) { }
+    location / {
+        try_files $uri $uri/ /index.php?/$request_uri;
+    }
+
+    # Pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    location ~ \.php$ {
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  /var/www/example.com/html$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+
+    # Deny access to .htaccess files, if Apache's document root
+    # concurs with Nginx's one
+    location ~ /\.ht {
+        deny  all;
+    }
+}

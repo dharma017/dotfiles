@@ -1,0 +1,39 @@
+{# <ul>
+{% for item in menu %}
+	<li class="{{item.classes | join(' ')}}">
+		<a href="{{item.get_link}}">{{item.title}}</a>
+		{% include "menu.twig" with {'menu': item.get_children} %}
+	</li>
+{% endfor %}
+</ul> #}
+<nav id="ddmenu">
+    <div class="menu-icon"></div>
+    <ul>
+        {% for item in top_menu.get_items %}
+            <li class="no-sub {{item.class}} 
+                                 {% if fn("is_single") %}
+                                    singe-post-menu-item
+                                  {% endif %}
+                               "><a class="top-heading" href="{{ item.link }}" title="{{ item.title }}">{{ item.title }}</a></li>
+        {% endfor %}
+
+        {# <li class="no-sub"><a href="{{ site_url}}/quick-contact" class="top-heading">Contact</a></li> #}
+
+        <li class="no-sub">
+
+            <a href="#contact_form_pop" class="top-heading fancybox">Contact Us</a>
+
+            <div style="display:none" class="fancybox-hidden">
+                <div id="contact_form_pop">
+                    <h3>Contact us</h3>
+                    {% filter shortcodes %}
+                    {# [popup-contact-form id="1" title="Contact Us"] #}
+                    [contact-form-7 id="367" title="Contact form 1"]
+                {% endfilter %}
+                </div>
+            </div>
+
+    </li>
+    </ul>
+</nav>
+

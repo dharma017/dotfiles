@@ -1,0 +1,23 @@
+cd ~/Sites/bip/
+scp root@barninternetprojektet.se:/home/_manual_backup/bip.2017-01-09-07.11.51.sql.gz .
+gunzip bip.2017-01-09-07.11.51.sql.gz
+mysql -uwpuser -p -h192.168.1.3 bip < bip.2017-01-09-07.11.51.sql
+mysql -uwpuser -p -h192.168.1.3 bip < stage-v5-queries.sql
+
+php index.php user todo encrypt_decrypt_data bip_admin_user
+php index.php user todo encrypt_decrypt_data _revision_bip_admin_user
+php index.php user todo encrypt_decrypt_data bip_user
+php index.php user todo encrypt_decrypt_data _revision_bip_user
+php index.php user todo update_bcrypt_password
+php index.php user todo encrypt_decrypt_data bip_app_comments
+php index.php user todo encrypt_decrypt_data bip_worksheet_comments
+php index.php user todo encrypt_decrypt_data bip_form_data
+php index.php user todo encrypt_decrypt_data bip_message
+
+mysqldump -uwpuser -p -h192.168.1.3 bip --routines | gzip > bip.$(date +%Y-%m-%d-%H.%M.%S).sql.gz
+scp bip.2017-01-10-12.44.27.sql.gz bjosod@k8bip01.ki.se:/home/bjosod
+bjosod@k8bip01.ki.se
+cd /home/bjosod
+gunzip bip.2017-01-10-12.44.27.sql.gz
+mysql -uroot -p bip < bip.2017-01-10-12.44.27.sql
+

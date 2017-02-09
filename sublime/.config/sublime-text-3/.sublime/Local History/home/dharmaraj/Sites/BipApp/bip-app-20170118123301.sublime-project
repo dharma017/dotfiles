@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				"plugins",
+				"working_dir/node_modules",
+				"platforms"
+			],
+			"path": "."
+		}
+	]
+}

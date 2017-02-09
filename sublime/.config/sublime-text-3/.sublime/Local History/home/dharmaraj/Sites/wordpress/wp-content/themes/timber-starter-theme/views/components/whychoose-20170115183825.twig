@@ -1,0 +1,52 @@
+<section class="whychoose">
+    <div class="container">
+        {% for item in whychoose %}
+        <h2 class="block-name align-center"><span>{{ item.title }}</span>{{ item.content }}</h2>
+        <ul class="colset">
+            <li class="colset-10">
+                <ul>
+                    {% for child in item.children %}
+                    {% if loop.index < 3 %}
+                    <li>
+                        <h3>
+                        {% if loop.index == 1 %}
+                        <i class="icon-sticker"></i>
+                        {% elseif loop.index == 2 %}
+                        <i class="icon-pin"></i>
+                        {% else %}
+                        <noscript>nothing</noscript>
+                        {% endif%}
+                        <a href="">{{ child.title }}</a></h3>
+                        <p>{{ child.content }}</p>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="colset-10 inner-padding">
+                <img src="{{ item.get_thumbnail.get_src|resize(290, 290) }}" alt="" class="circle">
+            </li>
+            <li class="colset-10">
+                <ul>
+                    {% for child in item.children %}
+                    {% if loop.index > 2 %}
+                    <li>
+                        <h3>
+                        {% if loop.index == 3 %}
+                        <i class="icon-socialnetwork"></i>
+                        {% elseif loop.index == 4 %}
+                        <i class="icon-heart"></i>
+                        {% else %}
+                        <noscript>nothing</noscript>
+                        {% endif%}
+                        <a href="">{{ child.title }}</a></h3>
+                        <p>{{ child.content }}</p>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+</section>

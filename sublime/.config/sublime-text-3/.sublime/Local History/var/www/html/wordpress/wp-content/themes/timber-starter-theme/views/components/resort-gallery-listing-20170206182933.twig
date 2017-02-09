@@ -1,0 +1,26 @@
+<section class="special-offers fullwidth fleft">
+    <div class="scroll-items">
+        <h2 class="block-name h1 text-center">{{ resort_title }}</h2>
+        {# <div class="entry-page">{{ content }}</div> #}
+        <div id="resorts-list" class="fourBlock">
+        <div class="row resorts-gallery-list">
+                {% for item in resort_post.get_field('resort_images') %}
+                <div class="itemsRepeater">
+                    <div class="shadedPart">
+                        <a class="fancybox" rel="details" title="{{item.caption}}" href="{{ item.url }}">
+                        {% if item.url %}
+                            <figure>
+                            <img class="lazyOwl owl-lazy" src="{{ item.url|resize(767, 432) }}" alt="TMT Maldives">
+                            <div class="imageCover"><i class="fa fa-search">&nbsp;</i></div>
+                        </figure>                
+                        {% endif %}
+                        </a>
+                            {# <p>{{item.caption}}</p> #}
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</section>

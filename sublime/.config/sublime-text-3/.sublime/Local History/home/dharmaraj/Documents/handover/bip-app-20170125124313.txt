@@ -1,0 +1,95 @@
+Tulips Gitlab
+http://gitlab.websearchpro.net/
+
+To use Gitlab in Web
+https://www.youtube.com/watch?v=enMumwvLAug
+https://www.youtube.com/watch?v=54mxyLo3Mqk
+
+Git versioning for project
+http://gitlab.websearchpro.net/dharmaraj/sample.git@gitlab.websearchpro.net
+
+Command line instructions
+
+Git global setup
+
+git config --global user.name "Dharma Raj Thapa"
+git config --global user.email "dharmaraj@tulipstechnologies.com"
+
+Generate SSH keys
+http://gitlab.websearchpro.net/help/ssh/README
+
+Add generated key here
+http://gitlab.websearchpro.net/profile/keys
+
+Create a new repository
+
+git clone git@gitlab.websearchpro.net:dharmaraj/sample.git
+cd sample
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+
+Existing folder or Git repository
+
+cd existing_folder
+git init
+git remote add origin git@gitlab.websearchpro.net:dharmaraj/sample.git
+git add .
+git commit
+git push -u origin master
+
+Detailed Explanation
+
+Getting Started
+
+To use Git you will have to setup a repository. You can take an existing directory to make a Git repository, or create an empty directory.
+
+To make your current directory a Git repository we simply run init.
+git init
+
+To make a new directory that is a Git repository we just specify a directory.
+git init newrepo
+
+From here on out we'll assume that you are in the root of the Git repository unless otherwise noted.
+
+Adding New Files
+
+So we have a repository, but nothing in it. You can add files with the add command.
+git add filename
+
+To add everything in your directory try 
+git add .
+
+Committing a Version
+
+Now that we've added these files, we want them to actually be stored in the Git repository. We do this by committing them to the repository.
+git commit -m "Adding files"
+
+If you leave off the -m you will be put into an editor to write the message yourself.
+
+Editing Files
+
+When you've made changes to some files, you can run git status to see what will happen on commit. You'll notice a list of modified files, and a message:
+no changes added to commit (use "git add" and/or "git commit -a")
+
+So running git commit will do nothing unless you explicitly add files to the commit with git add. If you're looking for the commit command to automatically commit local modifications we use the -a flag.
+git commit -a -m "Changed some files"
+
+Or if you'd like to have only certain files, but still not run git add we pass specific files.
+git commit -m "change some files" file1 file2
+
+Do note that -a will not cause new files to be committed, only modified.
+
+Publishing Your Repository
+git push -u origin master
+
+Will bring changes down and merge them in
+git pull
+
+References:
+https://websearchpro.teamwork.com/#tasks/7317541
+https://www.atlassian.com/git
+http://firstaidgit.io/#/
+https://github.com/git-tips/tips
+https://docs.gitlab.com/omnibus/README.html
