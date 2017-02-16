@@ -1,0 +1,102 @@
+Server : Redhat
+Users
+1. bjosod => bjorn user ( general server user )
+2. apache user => apache webserver user ( for deployment and project file editing purpose only )
+3. root => superadmin ( not provided )
+
+Cisco any connect VPN Login:
+
+new HOST: vpn.ki.se
+Username:supbjosod
+New pass: %D4^B$*a$u0o
+
+Deploy
+
+cd /mnt/f/vhost/bip/
+git push origin stage-v5
+dep deploy      ( use gitlab data )
+ssh bjosod@k8bip01.ki.se
+sudo /drift/scripts/deploy-bip-to-production.bash
+
+To rollback ( urgently )
+dep rollback ( don't use gitlab data, use releases folder form /tmp/deploy)
+ssh bjosod@k8bip01.ki.se
+sudo /drift/scripts/deploy-bip-to-production.bash
+
+Then Bjosod login:
+ssh bjosod@k8bip01.ki.se
+password: tTaUZHPkMXtp
+
+To check list of commands bjosod user can run
+sudo -l
+
+User bjosod may run the following commands on this host:
+    (root) /bin/systemctl restart httpd.service, /bin/systemctl stop httpd.service, /bin/systemctl status httpd.service, /bin/systemctl start httpd.service,
+    /bin/systemctl restart mariadb.service, /bin/systemctl status mariadb.service, /bin/systemctl restart postfix.service, /bin/systemctl status
+    postfix.service, /bin/rvim /etc/php.d/10-opcache.ini, /bin/rvim /etc/httpd/conf.d/25-barninternetprojektet.se.conf, /bin/rvim
+    /etc/httpd/conf.d/25-barninternetprojektet.se_ssl.conf, /bin/rvim /etc/my.cnf.d/server.cnf, /bin/rvim /etc/postfix/main.cf, /bin/rvim
+    /drift/scripts/deploy-bip-to-production.bash, /bin/ls, /drift/scripts/deploy-bip-to-production.bash *, /bin/less, /bin/grep, /bin/ls
+    (apache) /bin/bash
+
+Project Structure
+/var/www/barninternetprojektet.se
+
+Folders:
+
+current => same as gitlab (stage-v5 branch code only)
+shared => uploads,cache,logs
+
+phpmyadmin
+root / CSWyKrEh8wH4
+bip_dbuser/QrYjDdMp4234
+
+=========================
+# Deployment for system admin " Bibek
+========================
+
+Deployment form live site to new vpn server
+
+ssh root@barninternetprojektet.se
+password: cK2WE%@33#
+
+cd /home/_manual_backup
+mysqldump -u root -p'7vwE&0/6' bip --routines | gzip > bip.$(date +%Y-%m-%d-%H.%M.%S).sql.gz
+exit
+scp root@barninternetprojektet.se:/home/_manual_backup/bip.2017-02-13-06.47.49.sql.gz .
+gunzip bip.2017-02-13-06.47.49.sql.gz .
+
+mysql -uwpuser -p123456 -h192.168.1.3 -e "DROP DATABASE bip"
+mysql -uwpuser -p123456 -h192.168.1.3 -e "CREATE DATABASE bip COLLATE 'utf8_unicode_ci'"
+mysql -uwpuser -p123456 -h192.168.1.3 bip < bip.2017-02-13-06.47.49.sql
+
+Now in Vpn server
+
+copy uploads and sounds_files directory from live server to new vpn server
+
+ssh bjosod@k8bip01.ki.se
+rsync -avuz --progress root@barninternetprojektet.se:/var/www/barninternetprojektet.se/images/uploads /tmp/deploy/shared/images
+rsync -avuz --progress root@barninternetprojektet.se:/var/www/barninternetprojektet.se/assets/sound_files /tmp/deploy/shared/assets
+
+sudo -u apache /bin/bash
+cp -rf /tmp/deploy/shared/images/uploads/ /var/www/barninternetprojektet.se/shared/images
+cp -rf /tmp/deploy/shared/assets/ /var/www/barninternetprojektet.se/shared/
+
+exit
+
+===========
+# Deployment For developer " Kumod
+===========
+
+Import queries to database imported by bibek
+
+/mnt/f/vhost/bip/stage-v5-queries.sql
+
+Encryption 
+Run in Ubuntu Bash
+
+sudo apt-get install php5-cli php5-mysqlnd mariadb-client-core-5.5 -y
+
+cd /mnt/f/vhost/bip/
+
+php index.php user todo migrate
+

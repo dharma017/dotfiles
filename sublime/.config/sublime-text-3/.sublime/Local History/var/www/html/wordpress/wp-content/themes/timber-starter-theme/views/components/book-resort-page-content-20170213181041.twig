@@ -1,0 +1,151 @@
+<div class="content-wrapper fullwidth fleft">
+    <div class="col2-right-layout page">
+    <div class="col-main">        
+        <div class="entry-page fullwidth fleft">
+            
+            {% include 'components/form-response.twig' %}
+
+            <form id="book-form" action="{{ site.url }}/book-a-resort?id={{ request.id }}" method="post" class="wpcf7-form" novalidate="novalidate">
+
+            {% if request.id %}
+                <h5 class="resortTitle">Quote request for {{ resort.post_title }}</h5>
+                <input type="hidden" name="tmt-custom-post-id" value="{{ request.id }}">
+            {% else %}
+
+            <div class="formWrapper fullwidth fleft">
+                <h4>Resort</h4>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <select id="tmt-select-resort" name="tmt-custom-post-id" class="required">
+                            <option value="">Select Resort</option>
+                            {% for resort_key,resort_item in resort_list %}
+                                <option value="{{ resort_item.ID }}">{{ resort_item.post_title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+            
+            <div class="formWrapper fullwidth fleft marTop">
+                <h4>Guest Information</h4>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <input type="text" name="tmt-full-name" id="tmt-full-name-id" class="required tmt-full-name-cls" placeholder="Full Name">
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <input type="email" name="tmt-email" class="required tmt-email" placeholder="E-mail">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <input type="text" name="tmt-phone-number" class="required tmt-phone-number" placeholder="Phone Number">
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <select class="required" name="tmt-select-country">
+                                <option value="">Select Country</option>
+                            {% for key,country in countries %}
+                                <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="formWrapper fullwidth fleft">
+                <h4>Travel Requirements</h4>
+
+                <div class="row">
+     
+                    <div class="col-xs-12 col-sm-6">
+                    <div class="datepickers fleft">
+                       <label>&nbsp;</label>
+                            <input type="text" name="tmt-arrival-date" value="{{ request.arrival_date | date('Y-m-d') }}" placeholder="ARRIVAL DATE" class="datepicker form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                        <input type="number" name="tmt-no-nights" value="{{ request.nights }}" placeholder="Number of nights" class="">
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <input type="number" name="tmt-no-adult" value="{{ request.adults }}" min="0" max="100" placeholder="Number of adult" class="">
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <input type="number" name="tmt-no-children" value="{{ request.children }}" min="0" max="100" placeholder="Number of children" class="">
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <input type="number" name="tmt-no-infants" value="{{ request.infant }}" min="0" max="100" placeholder="Number of infants" class="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <input type="number" name="tmt-no-rooms" value="{{ request.rooms }}" min="0" max="100" placeholder="Number of rooms" class="">
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <select id="tmt-select-room" name="tmt-select-room" class="required"> 
+                                <option value="">Select Room</option>
+                            {% for key,value in resort_extras.room %}
+                                <option value="{{ key }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <select id="tmt-select-meal-plan" name="tmt-select-meal-plan" class="required">
+                            <option value="">Select Meal Plan</option>
+                            {% for key,value in resort_extras.meal_plan %}
+                                <option value="{{ key }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <textarea name="tmt-special-request" placeholder="Special Request"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="formWrapper fullwidth fleft">
+                
+                <h4>Payment method</h4>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+
+                        <span class="wpcf7-form-control-wrap tmt-tenant-method">
+
+                            <span class="wpcf7-form-control wpcf7-radio"><span class="wpcf7-list-item first"><input type="radio" name="tmt-tenant-method" value="1" checked="checked">&nbsp;<span class="wpcf7-list-item-label">Bank transfer</span></span><span class="wpcf7-list-item last">
+
+                            <input type="radio" name="tmt-tenant-method" value="2">&nbsp;<span class="wpcf7-list-item-label">Online by credit card</span></span></span>
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+            {# <div class="formWrapper fullwidth fleft">
+                    <div class="g-recaptcha" data-sitekey="6LfG9CgTAAAAANqzFQT1QpRR7azXTcYK_j2HfcUb"></div>
+                </div>
+            </div>
+ #}
+            <div class="fullwidth fleft marTop withCaptpcha">
+                <div class="g-recaptcha fleft" data-sitekey="6LfG9CgTAAAAANqzFQT1QpRR7azXTcYK_j2HfcUb"></div>
+
+                <input type="submit" name="submit" value="Send Request" class="wpcf7-form-control wpcf7-submit">
+            </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+    
+</div>  <!-- /content-wrapper -->
+<script type="text/javascript" src="{{ site.theme.link }}/assets/jquery-validation-1.15.0/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="{{ site.theme.link }}/static/autopopulates.js'"></script>
+
+<script>
+$("#book-form").validate();
+</script>
